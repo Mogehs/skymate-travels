@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 @font-face {
@@ -131,9 +132,6 @@ video[preload="metadata"] {
 .animate-fade-in {
   animation: fadeIn 1s ease-out forwards;
 }
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
-
-@import "tailwindcss";
 
 /* Global tokens for Skyroo International Pvt Ltd */
 :root {
@@ -156,13 +154,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: radial-gradient(
-    circle at top left,
-    #e0f2fe 0,
-    #f4f6fb 38%,
-    #ffffff 100%
-  );
-  color: var(--sky-ink);
+  background-color: #ffffff;
   margin: 0;
   padding: 0;
   min-height: 100vh;

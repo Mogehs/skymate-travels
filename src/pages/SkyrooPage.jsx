@@ -5,14 +5,8 @@ import { ArrowUp, MessageCircle } from "lucide-react";
 import "../assets/skyroo/scrollbar.css";
 import Hero from "../components/skyroo/Hero";
 import AboutUs from "../components/skyroo/About";
-import PopularTourTypes from "../components/skyroo/Popular";
-import WhyChooseUs from "../components/skyroo/Choose";
 import Umrah from "../components/skyroo/Umrah";
-import BestDeals from "../components/skyroo/BestDeals";
 import CuratedPackages from "../components/skyroo/CuratedPackages";
-import TopPackages from "../components/skyroo/TopPackage";
-import MostSearched from "../components/skyroo/MostSearched";
-import DestinationHighlights from "../components/skyroo/Destination";
 import Destinations from "../components/skyroo/Destinations";
 import Testimonials from "../components/skyroo/Testimonials";
 import MapSection from "../components/skyroo/Map";
@@ -136,135 +130,26 @@ const SkyrooPage = () => {
 
   return (
     <>
-      <main className="skyroo-main">
+      <main className="font-dm text-slate-900 bg-white">
         {/* Hero section */}
         <Hero openGlobalModal={openGlobalModal} />
 
-        {/* Popular tour types */}
-        <section id="journeys" className="skyroo-section">
-          <div className="skyroo-section-content">
-            <p className="skyroo-section-overtitle">Popular sky lanes</p>
-            <h2 className="skyroo-section-title">
-              Journeys our guests book the most
-            </h2>
-            <p className="skyroo-section-desc">
-              From corporate corridors to once-in-a-lifetime escapes, Skyroo
-              assembles routes, cabins and ground services into clear,
-              ready-to-fly journeys.
-            </p>
-          </div>
-          <div className="skyroo-tourtype-list">
-            <article className="skyroo-tourtype-card">
-              <span>Signature</span>
-              <strong>Business city pairs</strong>
-            </article>
-            <article className="skyroo-tourtype-card">
-              <span>Weekender</span>
-              <strong>Short-haul escapes</strong>
-            </article>
-            <article className="skyroo-tourtype-card">
-              <span>Family</span>
-              <strong>Multi‑city itineraries</strong>
-            </article>
-            <article className="skyroo-tourtype-card">
-              <span>Sacred</span>
-              <strong>Makkah &amp; Madinah rotations</strong>
-            </article>
-            <article className="skyroo-tourtype-card">
-              <span>Executive</span>
-              <strong>Private cabin &amp; jet share</strong>
-            </article>
-            <article className="skyroo-tourtype-card">
-              <span>Seasonal</span>
-              <strong>Summer &amp; winter corridors</strong>
-            </article>
-          </div>
-        </section>
+        {/* About Skyroo - Simplified */}
+        <AboutUs />
 
-        {/* About + achievements block from Skyroo International Pvt Ltd */}
-        <section id="about" className="skyroo-section">
-          <div className="skyroo-section-content">
-            <p className="skyroo-section-overtitle">About Skyroo</p>
-            <h2 className="skyroo-section-title">
-              Aviation ops, concierge and travel under one roof
-            </h2>
-            <p className="skyroo-section-desc">
-              We sit between global carriers, premium cabins and on‑ground
-              partners so your teams, families and guests always have a single
-              desk to call.
-            </p>
-          </div>
-          <div className="skyroo-about-grid">
-            <div className="skyroo-about-text">
-              <div className="skyroo-about-highlights">
-                <div className="skyroo-about-highlight">
-                  <span className="skyroo-about-highlight-bullet" />
-                  <p>
-                    Route design that balances time, comfort and total cost of
-                    travel—not just the airfare.
-                  </p>
-                </div>
-                <div className="skyroo-about-highlight">
-                  <span className="skyroo-about-highlight-bullet" />
-                  <p>
-                    Visa, lounge and disruption management handled by a single
-                    Skyroo mission desk.
-                  </p>
-                </div>
-                <div className="skyroo-about-highlight">
-                  <span className="skyroo-about-highlight-bullet" />
-                  <p>
-                    Quiet upgrades to better cabins and schedules using our
-                    partner airline network.
-                  </p>
-                </div>
-              </div>
-
-              <div className="skyroo-mission">
-                <h3>Our mission</h3>
-                <p>
-                  Build the most trusted flight concierge in the region—so every
-                  departure feels orchestrated, not improvised.
-                </p>
-              </div>
-            </div>
-            <div className="skyroo-about-img" />
-          </div>
-
-          <div className="skyroo-achievements-list">
-            <div className="skyroo-achievement-card">
-              <span className="stat">2.4K+</span>
-              <span className="label">Flights curated</span>
-            </div>
-            <div className="skyroo-achievement-card">
-              <span className="stat">40+</span>
-              <span className="label">Partner airlines</span>
-            </div>
-            <div className="skyroo-achievement-card">
-              <span className="stat">68</span>
-              <span className="label">Cities connected</span>
-            </div>
-          </div>
-        </section>
-
-        {/* Rich Skymate-inspired content blocks */}
-        <PopularTourTypes />
-        <WhyChooseUs />
-
-        {/* Packages from Firebase */}
-        <TopPackages />
-        <MostSearched openGlobalModal={openGlobalModal} />
-        <Umrah openGlobalModal={openGlobalModal} />
-        <BestDeals />
+        {/* Curated Packages - Premium Selection */}
         <CuratedPackages openGlobalModal={openGlobalModal} />
 
-        {/* Destination highlights & destinations of the month from Firebase */}
-        <DestinationHighlights />
-        <Destinations />
-        <Testimonials />
-        <MapSection />
+        {/* Umrah - Specialized Service */}
+        <Umrah openGlobalModal={openGlobalModal} />
 
-        {/* Contact footer block */}
+        {/* Destinations - Inspiration */}
+        {/* <Destinations /> */}
+
+        {/* Testimonials - Social Proof */}
+        <Testimonials />
+
+        {/* Contact Footer */}
         <ContactUs />
       </main>
 
