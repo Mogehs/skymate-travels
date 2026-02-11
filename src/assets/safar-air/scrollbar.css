@@ -1,0 +1,53 @@
+/* Custom Scrollbar Styles - Premium Blue & Gold Theme */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1E40AF #f1f5f9;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1E40AF 0%, #3B82F6 50%, #F59E0B 100%);
+  border-radius: 10px;
+  border: 2px solid #f1f5f9;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #1E3A8A 0%, #1E40AF 50%, #D97706 100%);
+}
+
+*::-webkit-scrollbar-corner {
+  background: #f1f5f9;
+}
+
+/* Scrollbar for modal or specific containers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(30, 64, 175, 0.05);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1E40AF, #F59E0B);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #1E3A8A, #D97706);
+}
+

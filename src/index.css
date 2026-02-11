@@ -1,0 +1,1092 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Sansita";
+  src: url("/fonts/sansita/Sansita-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Dm-sans";
+  src: url("/fonts/dm-sans/DMSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@theme {
+  --font-sansita: "Sansita";
+  --font-dm: "Dm-sans";
+}
+
+/* Smooth page loading and rendering optimizations */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-display: swap;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Override autofill background color to maintain dark theme */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.05) inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Prevent flash of unstyled content */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading spinner improvements */
+@keyframes smoothSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.smooth-spin {
+  animation: smoothSpin 1s linear infinite;
+}
+
+/* Video optimization for better loading performance */
+video {
+  object-fit: cover;
+}
+
+/* Prevent browser loading indicators for lazy content */
+video[preload="metadata"] {
+  opacity: 1;
+}
+
+/* Smooth transitions for video loading states */
+.video-loading {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@keyframes slowZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-slow-zoom {
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
+
+@import "tailwindcss";
+
+/* Global tokens for Skyroo International Pvt Ltd */
+:root {
+  --sky-bg: #f4f6fb;
+  --sky-surface: #ffffff;
+  --sky-surface-soft: #f8fafc;
+  --sky-border-subtle: rgba(148, 163, 184, 0.28);
+  --sky-border-strong: rgba(15, 23, 42, 0.12);
+  --sky-accent: #0ba2e0;
+  --sky-accent-soft: rgba(11, 162, 224, 0.08);
+  --sky-ink: #0f172a;
+  --sky-muted: #6b7280;
+  --font-heading: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(
+    circle at top left,
+    #e0f2fe 0,
+    #f4f6fb 38%,
+    #ffffff 100%
+  );
+  color: var(--sky-ink);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Layout shell */
+.skyroo-main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 4rem;
+}
+
+/* Subtle glass background used in navbar/footer/testimonial cards (light theme) */
+.sky-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(248, 250, 252, 0.98)
+  );
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.gradient-sky-primary {
+  /* Refined brand gradient: clean sky blues, no yellow */
+  /* Softer, more professional primary – subtle sky blues */
+  background: linear-gradient(135deg, #38bdf8, #0f82d8);
+}
+
+.text-sky-accent {
+  color: var(--sky-accent);
+}
+
+.border-sky-border-subtle {
+  border-color: var(--sky-border-subtle);
+}
+
+.bg-sky-accent-soft {
+  background-color: var(--sky-accent-soft);
+}
+
+/* Hero section – richer, more explanatory like references */
+.skyroo-hero {
+  position: relative;
+  border-radius: 32px;
+  padding: 3.5rem 2.5rem;
+  margin-bottom: 3.5rem;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at top left,
+    #e0f2fe 0,
+    #e5e7eb 28%,
+    #f9fafb 55%,
+    #0f172a 120%
+  );
+  box-shadow: 0 26px 70px rgba(15, 23, 42, 0.22);
+}
+
+.skyroo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 0, rgba(94, 234, 212, 0.18), transparent 55%),
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(59, 130, 246, 0.18),
+      transparent 55%
+    );
+  opacity: 0.9;
+}
+
+.skyroo-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.skyroo-label-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  color: #e5e7eb;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  margin-bottom: 1.4rem;
+}
+
+.skyroo-title {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #f9fafb;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.skyroo-title span {
+  color: #facc15;
+}
+
+.skyroo-subtitle {
+  font-size: 1.05rem;
+  color: #e5e7eb;
+  max-width: 36rem;
+  margin: 0 auto 2.1rem;
+}
+
+.skyroo-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.8rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #cbd5f5;
+}
+
+.skyroo-hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.skyroo-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.skyroo-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.4rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f97316, #facc15);
+  color: #0f172a;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.65);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+.skyroo-cta.secondary {
+  background: rgba(15, 23, 42, 0.72);
+  color: #e5e7eb;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.6);
+}
+
+.skyroo-cta:hover {
+  transform: translateY(-1.5px) scale(1.02);
+  filter: brightness(1.05);
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.75);
+}
+
+.skyroo-cta.secondary:hover {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+/* Section base – consistent with reference designs */
+.skyroo-section {
+  padding: 3.5rem 0 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.skyroo-section:nth-of-type(even) {
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0.98),
+    rgba(241, 245, 249, 0.98)
+  );
+  border-radius: 32px;
+  margin-inline: -1.25rem;
+  padding-inline: 1.25rem;
+}
+
+.skyroo-section-content {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.skyroo-section-overtitle {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: var(--sky-accent);
+  margin-bottom: 0.9rem;
+}
+
+.skyroo-section-title {
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--sky-ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.7rem;
+}
+
+.skyroo-section-desc {
+  color: var(--sky-muted);
+  font-size: 1rem;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+/* Popular tour types – icon like pills explaining categories */
+.skyroo-tour-types {
+  margin-top: 1.5rem;
+}
+
+.skyroo-tourtype-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-top: 2.1rem;
+}
+
+.skyroo-tourtype-card {
+  background: var(--sky-surface);
+  border-radius: 18px;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--sky-border-subtle);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.92rem;
+  color: var(--sky-ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.skyroo-tourtype-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top left,
+    rgba(11, 162, 224, 0.16),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.skyroo-tourtype-card span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: var(--sky-muted);
+}
+
+.skyroo-tourtype-card strong {
+  font-weight: 600;
+}
+
+.skyroo-tourtype-card:hover::before {
+  opacity: 1;
+}
+
+.skyroo-tourtype-card:hover {
+  border-color: rgba(56, 189, 248, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 52px rgba(15, 23, 42, 0.18);
+}
+
+/* About grid – visual + explanatory copy blocks */
+.skyroo-about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 2.4rem;
+  align-items: center;
+  max-width: 1000px;
+  margin: 2.5rem auto 0;
+}
+
+.skyroo-about-text {
+  text-align: left;
+}
+
+.skyroo-about-highlights {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+}
+
+.skyroo-about-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  color: var(--sky-muted);
+}
+
+.skyroo-about-highlight-bullet {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--sky-accent);
+  box-shadow: 0 0 0 6px rgba(11, 162, 224, 0.15);
+  margin-top: 0.3rem;
+}
+
+.skyroo-about-img {
+  min-height: 240px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 20% 0, rgba(56, 189, 248, 0.18), transparent 60%),
+    url("/src/assets/images/travel-concept-with-worldwide-landmarks.png")
+      center/cover no-repeat;
+  box-shadow: 0 26px 60px rgba(15, 23, 42, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Clean image without dark overlay pill */
+.skyroo-about-img::after {
+  content: none;
+}
+
+.skyroo-mission {
+  margin-top: 1.8rem;
+  padding: 1.2rem 1.1rem;
+  border-radius: 18px;
+  background: linear-gradient(
+    120deg,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.9)
+  );
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  color: #e5e7eb;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.4);
+}
+
+.skyroo-mission h3 {
+  font-size: 1rem;
+  font-family: var(--font-heading);
+  margin-bottom: 0.4rem;
+  color: #facc15;
+}
+
+.skyroo-mission p {
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* Achievements – stat cards */
+.skyroo-achievements-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+  margin-top: 2.3rem;
+}
+
+.skyroo-achievement-card {
+  min-width: 180px;
+  padding: 1.4rem 1.6rem;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle at top left,
+    rgba(11, 162, 224, 0.12),
+    #ffffff
+  );
+  border: 1px solid var(--sky-border-subtle);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  text-align: left;
+}
+
+.skyroo-achievement-card .stat {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--sky-ink);
+}
+
+.skyroo-achievement-card .label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--sky-muted);
+  margin-top: 0.4rem;
+}
+
+/* Why choose us – pill cards */
+.skyroo-whychoose-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-top: 2.3rem;
+}
+
+.skyroo-whychoose-card {
+  padding: 1.2rem 1.3rem;
+  border-radius: 18px;
+  background: var(--sky-surface);
+  border: 1px dashed rgba(148, 163, 184, 0.7);
+  font-size: 0.9rem;
+  color: var(--sky-ink);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.skyroo-whychoose-card::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fbbf24, #0ba2e0);
+  box-shadow: 0 0 0 5px rgba(11, 162, 224, 0.18);
+  margin-top: 0.15rem;
+}
+
+/* Packages – card layout */
+.skyroo-packages-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin-top: 2.4rem;
+}
+
+.skyroo-package-card {
+  background: var(--sky-surface);
+  border-radius: 22px;
+  padding: 1.6rem 1.5rem 1.4rem;
+  border: 1px solid var(--sky-border-subtle);
+  box-shadow: 0 20px 46px rgba(15, 23, 42, 0.1);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.skyroo-package-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top right,
+    rgba(250, 204, 21, 0.18),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.skyroo-package-card h4 {
+  position: relative;
+  font-size: 1.02rem;
+  font-family: var(--font-heading);
+  margin-bottom: 0.45rem;
+}
+
+.skyroo-package-card p {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--sky-muted);
+}
+
+.skyroo-package-tag {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.2rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+}
+
+.skyroo-package-card:hover::before {
+  opacity: 1;
+}
+
+/* Testimonials */
+.skyroo-testimonials-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.4rem;
+}
+
+.skyroo-testimonial-card {
+  padding: 1.5rem 1.4rem 1.4rem;
+  border-radius: 22px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: radial-gradient(
+    circle at top left,
+    rgba(15, 23, 42, 0.96),
+    rgba(15, 23, 42, 0.9)
+  );
+  color: #e5e7eb;
+  font-size: 0.92rem;
+  text-align: left;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.8);
+  position: relative;
+}
+
+.skyroo-testimonial-card::before {
+  content: "“";
+  position: absolute;
+  top: -1.1rem;
+  left: 1.1rem;
+  font-size: 3rem;
+  opacity: 0.15;
+}
+
+.skyroo-testimonial-card span {
+  display: block;
+  margin-top: 1.2rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #facc15;
+}
+
+/* Contact */
+.skyroo-contact-form {
+  margin-top: 2.2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr);
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+.skyroo-contact-form input,
+.skyroo-contact-form textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--sky-border-subtle);
+  font-size: 0.96rem;
+  font-family: var(--font-body);
+  background: var(--sky-surface);
+  color: var(--sky-ink);
+  outline: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.skyroo-contact-form textarea {
+  border-radius: 24px;
+  min-height: 130px;
+  resize: vertical;
+}
+
+.skyroo-contact-form input:focus,
+.skyroo-contact-form textarea:focus {
+  border-color: rgba(56, 189, 248, 0.9);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.9);
+  background: #f9fafb;
+}
+
+.skyroo-contact-form button {
+  justify-self: center;
+  padding: 0.9rem 2.5rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f97316, #facc15);
+  color: #0f172a;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.skyroo-contact-form button:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.8);
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .skyroo-main {
+    padding-inline: 1.1rem;
+  }
+
+  .skyroo-hero {
+    padding: 2.7rem 1.7rem;
+  }
+
+  .skyroo-tourtype-list,
+  .skyroo-whychoose-list,
+  .skyroo-packages-list,
+  .skyroo-testimonials-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skyroo-about-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .skyroo-main {
+    padding-top: 6.5rem;
+  }
+
+  .skyroo-hero {
+    border-radius: 24px;
+  }
+
+  .skyroo-title {
+    font-size: 2rem;
+  }
+
+  .skyroo-section:nth-of-type(even) {
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .skyroo-hero {
+    padding: 2.1rem 1.2rem;
+  }
+
+  .skyroo-tourtype-list,
+  .skyroo-whychoose-list,
+  .skyroo-packages-list,
+  .skyroo-testimonials-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .skyroo-section-title {
+    font-size: 1.5rem;
+  }
+
+  .skyroo-section {
+    padding-block: 3rem 2.4rem;
+  }
+}
+
+/* Legal pages specific styling */
+.legal-hero {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.legal-page-content {
+  line-height: 1.7;
+}
+
+.legal-page-content h2 {
+  scroll-margin-top: 80px;
+}
+
+.legal-page-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal-page-content p {
+  margin-bottom: 1rem;
+}
+
+.legal-page-content ul {
+  margin-bottom: 1rem;
+}
+
+.legal-page-content ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Legal page responsive adjustments */
+@media (max-width: 768px) {
+  .legal-page-content .ml-11 {
+    margin-left: 0;
+  }
+
+  .legal-page-content .flex {
+    flex-direction: column;
+  }
+
+  .legal-page-content .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-page-content .md\\:col-span-2 {
+    grid-column: span 1;
+  }
+}
+
+/* Footer responsive improvements */
+@media (min-width: 640px) and (max-width: 1023px) {
+  footer .grid-cols-2 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  footer .col-span-2 {
+    grid-column: span 3;
+  }
+}
+
+/* Better contact info layout on medium screens */
+@media (min-width: 768px) and (max-width: 1023px) {
+  footer .grid-cols-2.sm\\:grid-cols-3.lg\\:grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  footer .col-span-2.sm\\:col-span-1 {
+    grid-column: span 2;
+  }
+}
+
+@theme {
+  --font-playfair: "Playfair Display", serif;
+  --font-inter: "Inter", sans-serif;
+
+  --color-primary: #1e40af;
+  --color-primary-dark: #1e3a8a;
+  --color-secondary: #f59e0b;
+  --color-secondary-dark: #d97706;
+  --color-secondary-light: #fcd34d;
+  --color-accent: #3b82f6;
+  --color-neutral: #64748b;
+  --color-light: #f8fafc;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-padding {
+  padding: 80px 20px;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 60px 16px;
+  }
+}
+
+.bg-gradient-footer {
+  background: linear-gradient(
+    to bottom right,
+    var(--color-primary),
+    var(--color-primary-dark),
+    var(--color-primary)
+  );
+}
+
+.bg-gradient-hero {
+  background: linear-gradient(to bottom, white, rgb(239 246 255 / 0.1), white);
+}
+
+.bg-gradient-section {
+  background: linear-gradient(
+    to bottom right,
+    white,
+    rgb(239 246 255 / 0.3),
+    rgb(255 251 235 / 0.2)
+  );
+}
+
+.btn-primary {
+  background: linear-gradient(
+    to right,
+    var(--color-secondary),
+    var(--color-secondary-light)
+  );
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(
+    to right,
+    var(--color-secondary-dark),
+    var(--color-secondary)
+  );
+}
+
+.btn-secondary {
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-accent)
+  );
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(
+    to right,
+    var(--color-primary-dark),
+    var(--color-primary)
+  );
+}
+
+.badge-primary {
+  background: linear-gradient(to right, rgb(219 234 254), rgb(254 243 199));
+  border: 1px solid rgb(219 234 254);
+}
+
+.badge-secondary {
+  background: linear-gradient(
+    to right,
+    var(--color-secondary),
+    var(--color-secondary-light)
+  );
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-base {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow:
+    0 10px 40px rgba(30, 64, 175, 0.1),
+    0 2px 8px rgba(30, 64, 175, 0.06);
+  transition: all 0.3s ease;
+}
+
+.card-base:hover {
+  box-shadow:
+    0 20px 60px rgba(30, 64, 175, 0.15),
+    0 4px 16px rgba(30, 64, 175, 0.1);
+  transform: translateY(-4px);
+}
+
+.card-border {
+  border: 2px solid rgb(219 234 254);
+}
+
+.card-border:hover {
+  border-color: var(--color-secondary);
+}
+
+.title-gradient {
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+.transition-smooth-slow {
+  transition: all 0.5s ease;
+}
+
+.shadow-premium {
+  box-shadow:
+    0 10px 40px rgba(30, 64, 175, 0.1),
+    0 2px 8px rgba(30, 64, 175, 0.06);
+}
+
+.shadow-premium-hover {
+  box-shadow:
+    0 20px 60px rgba(30, 64, 175, 0.15),
+    0 4px 16px rgba(30, 64, 175, 0.1);
+}
+
+.rounded-premium {
+  border-radius: 1.5rem;
+}
+
+.rounded-premium-lg {
+  border-radius: 2rem;
+}
+
+.link-hover {
+  transition: all 0.3s ease;
+}
+
+.link-hover:hover {
+  transform: translateX(4px);
+}
+
+.section-title {
+  font-family: var(--font-playfair);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.section-subtitle {
+  color: rgb(75 85 99);
+  font-size: 1rem;
+  line-height: 1.75;
+}
