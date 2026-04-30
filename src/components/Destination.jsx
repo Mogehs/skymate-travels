@@ -6,25 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 
-const fallbackHighlights = [
-  {
-    type: 'description',
-    title: "Discover The World's Most Breathtaking Places",
-    description:
-      'Experience the magic of travel through our hand-picked video highlights. From the timeless streets of Europe to the sun-kissed beaches of Asia, we bring you a glimpse of the world’s most iconic destinations — in motion.',
-    background: highlight,
-  },
-  {
-    type: 'video',
-    thumbnail: video1,
-    videoUrl: oneVid,
-  },
-  {
-    type: 'video',
-    thumbnail: video2,
-    videoUrl: twoVid,
-  },
-];
+
 
 const VideoPlayer = ({ videoUrl, thumbnail, index, isPlaying, onPlay }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -104,16 +86,34 @@ const VideoPlayer = ({ videoUrl, thumbnail, index, isPlaying, onPlay }) => {
   );
 };
 
-const DestinationHighlights = () => {
+const DestinationHighlights = ({ brand = 'skymate' }) => {
   const [playingIndex, setPlayingIndex] = useState(null);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
+  const theme = {
+    skymate: {
+      accent: "text-[#EB662B]",
+      hover: "hover:text-[#EB662B]"
+    },
+    skyroo: {
+      accent: "text-[#0ea5e9]",
+      hover: "hover:text-[#0ea5e9]"
+    },
+    'safar-air': {
+      accent: "text-[#1E40AF]",
+      hover: "hover:text-[#1E40AF]"
+    }
+  }[brand] || {
+    accent: "text-[#EB662B]",
+    hover: "hover:text-[#EB662B]"
+  };
+
   useEffect(() => {
     (async () => {
-      const data = await fetchDestinationHighlightsContent();
+      const data = await fetchDestinationHighlightsContent(brand);
       if (data.length) {
         setItems(
           data.map((d) => ({
@@ -126,94 +126,105 @@ const DestinationHighlights = () => {
           }))
         );
       } else {
-        setItems(fallbackHighlights);
+        setItems([]);
       }
       setLoading(false);
     })();
-  }, []);
+  }, [brand]);
 
   return (
     <section className='px-4 md:px-8 lg:px-20 py-12 bg-white font-dm max-w-[1536px] mx-auto'>
       <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center md:text-left'>
-        Destination <span className='text-[#EB662B]'>Highlights</span>
+        Destination <span className={theme.accent}>Highlights</span>
       </h2>
 
-      <div className='relative'>
-        {/* Nav Buttons (centered vertically on sides) */}
-        <div className='absolute top-1/2 -translate-y-1/2 left-[-24px] md:left-[-32px] z-10'>
-          <button
-            className='text-neutral-700 hover:text-[#EB662B] transition-colors p-1'
-            ref={prevRef}
-            aria-label='Previous'
-          >
-            <ChevronLeft size={28} />
-          </button>
-        </div>
-        <div className='absolute top-1/2 -translate-y-1/2 right-[-24px] md:right-[-32px] z-10'>
-          <button
-            className='text-neutral-700 hover:text-[#EB662B] transition-colors p-1'
-            ref={nextRef}
-            aria-label='Next'
-          >
-            <ChevronRight size={28} />
-          </button>
-        </div>
-
-        <Swiper
-          modules={[Navigation]}
-          onBeforeInit={(swiper) => {
-            swiper.params.navigation.prevEl = prevRef.current;
-            swiper.params.navigation.nextEl = nextRef.current;
-          }}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          loop
-          centeredSlides
-          slidesPerView={1}
-          spaceBetween={24}
-          breakpoints={{
-            640: { slidesPerView: 1.05, spaceBetween: 20 },
-            768: { slidesPerView: 1.8, spaceBetween: 24 },
-            1024: { slidesPerView: 2.4, spaceBetween: 28 },
-            1280: { slidesPerView: 3, spaceBetween: 32 },
-          }}
-          className='pb-6'
-        >
-          {(loading ? fallbackHighlights : items).map((item, index) => (
-            <SwiperSlide key={index}>
-              {item.type === 'description' ? (
-                <div
-                  className='rounded-2xl p-4 text-white shadow-md flex flex-col justify-between h-[28rem] md:h-[32rem] lg:h-[34rem]'
-                  style={{
-                    backgroundImage: `url(${item.background})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                >
-                  <div className='bg-white/10 bg-opacity-80 p-4 rounded-xl backdrop-blur-md h-full flex flex-col justify-center'>
-                    <h3 className='text-lg md:text-xl font-bold mb-2'>
-                      {item.title}
-                    </h3>
-                    <p className='text-sm md:text-base leading-relaxed'>
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <VideoPlayer
-                  videoUrl={item.videoUrl}
-                  thumbnail={item.thumbnail}
-                  index={index}
-                  isPlaying={playingIndex === index}
-                  onPlay={setPlayingIndex}
-                />
-              )}
-            </SwiperSlide>
+      {loading ? (
+        <div className="flex gap-4 overflow-hidden">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="min-w-[300px] h-64 bg-gray-100 animate-pulse rounded-2xl"></div>
           ))}
-        </Swiper>
-      </div>
+        </div>
+      ) : items.length === 0 ? (
+        <div className="text-center py-20 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
+          <p className="text-gray-500">No highlights available for {brand === 'skymate' ? 'Skymate' : brand === 'skyroo' ? 'Skyroo' : 'Safar Air'} yet.</p>
+        </div>
+      ) : (
+        <div className='relative'>
+          {/* Nav Buttons (centered vertically on sides) */}
+          <div className='absolute top-1/2 -translate-y-1/2 left-[-24px] md:left-[-32px] z-10'>
+            <button
+              className={`text-neutral-700 ${theme.hover} transition-colors p-1`}
+              ref={prevRef}
+              aria-label='Previous'
+            >
+              <ChevronLeft size={28} />
+            </button>
+          </div>
+          <div className='absolute top-1/2 -translate-y-1/2 right-[-24px] md:right-[-32px] z-10'>
+            <button
+              className={`text-neutral-700 ${theme.hover} transition-colors p-1`}
+              ref={nextRef}
+              aria-label='Next'
+            >
+              <ChevronRight size={28} />
+            </button>
+          </div>
+
+          <Swiper
+            modules={[Navigation]}
+            onBeforeInit={(swiper) => {
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
+            }}
+            navigation={{
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            loop
+            centeredSlides
+            slidesPerView={1}
+            spaceBetween={24}
+            breakpoints={{
+              640: { slidesPerView: 1.05, spaceBetween: 20 },
+              1024: { slidesPerView: 2.4, spaceBetween: 28 },
+              1280: { slidesPerView: 3, spaceBetween: 32 },
+            }}
+            className='pb-6'
+          >
+            {items.map((item, index) => (
+              <SwiperSlide key={index}>
+                {item.type === 'description' ? (
+                  <div
+                    className='rounded-2xl p-4 text-white shadow-md flex flex-col justify-between h-[28rem] md:h-[32rem] lg:h-[34rem]'
+                    style={{
+                      backgroundImage: `url(${item.background})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                  >
+                    <div className='bg-white/10 bg-opacity-80 p-4 rounded-xl backdrop-blur-md h-full flex flex-col justify-center'>
+                      <h3 className='text-lg md:text-xl font-bold mb-2'>
+                        {item.title}
+                      </h3>
+                      <p className='text-sm md:text-base leading-relaxed'>
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <VideoPlayer
+                    videoUrl={item.videoUrl}
+                    thumbnail={item.thumbnail}
+                    index={index}
+                    isPlaying={playingIndex === index}
+                    onPlay={setPlayingIndex}
+                  />
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
     </section>
   );
 };

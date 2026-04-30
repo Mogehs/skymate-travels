@@ -358,18 +358,20 @@ const ItineraryDesigner = ({ packageName = "Hero Section Booking" }) => {
                   <CalendarDays size={18} />
                 </div>
                 <input
-                  type="date"
+                  type={formData.departure ? "date" : "text"}
+                  placeholder="Departure Date"
+                  onFocus={(e) => (e.target.type = "date")}
+                  onBlur={(e) =>
+                    (e.target.type = e.target.value ? "date" : "text")
+                  }
                   name="departure"
                   value={formData.departure}
                   onChange={(e) =>
                     handleFieldChange("departure", e.target.value)
                   }
                   required
-                  className="w-full bg-white/5 border border-white/10 focus:border-orange-400/50 outline-none rounded-xl py-3.5 pl-10 pr-3 text-white text-sm transition-all [color-scheme:dark] cursor-pointer"
+                  className="w-full bg-white/5 border border-white/10 focus:border-orange-400/50 outline-none rounded-xl py-3.5 pl-10 pr-3 text-white placeholder:text-white/40 text-sm transition-all [color-scheme:dark] cursor-pointer"
                 />
-                <label className="absolute -top-2 left-3 px-1.5 bg-gray-800 border border-white/10 rounded text-[9px] text-white/60 tracking-wider font-bold">
-                  DEPARTURE
-                </label>
               </div>
               {tripType === "Round trip" && (
                 <div className="relative group">
@@ -377,18 +379,20 @@ const ItineraryDesigner = ({ packageName = "Hero Section Booking" }) => {
                     <CalendarDays size={18} />
                   </div>
                   <input
-                    type="date"
+                    type={formData.arrival ? "date" : "text"}
+                    placeholder="Return Date"
+                    onFocus={(e) => (e.target.type = "date")}
+                    onBlur={(e) =>
+                      (e.target.type = e.target.value ? "date" : "text")
+                    }
                     name="arrival"
                     value={formData.arrival}
                     onChange={(e) =>
                       handleFieldChange("arrival", e.target.value)
                     }
                     required
-                    className="w-full bg-white/5 border border-white/10 focus:border-orange-400/50 outline-none rounded-xl py-3.5 pl-10 pr-3 text-white text-sm transition-all [color-scheme:dark] cursor-pointer"
+                    className="w-full bg-white/5 border border-white/10 focus:border-orange-400/50 outline-none rounded-xl py-3.5 pl-10 pr-3 text-white placeholder:text-white/40 text-sm transition-all [color-scheme:dark] cursor-pointer"
                   />
-                  <label className="absolute -top-2 left-3 px-1.5 bg-gray-800 border border-white/10 rounded text-[9px] text-white/60 tracking-wider font-bold">
-                    RETURN
-                  </label>
                 </div>
               )}
             </div>

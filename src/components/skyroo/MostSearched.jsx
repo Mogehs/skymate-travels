@@ -18,8 +18,8 @@ export default function MostSearched({ openGlobalModal }) {
     const loadCities = async () => {
       try {
         setLoading(true);
-        console.log('🔍 [MOST SEARCHED] Starting to fetch data...');
-        const data = await fetchMostSearched();
+        console.log('🔍 [MOST SEARCHED] Starting to fetch data for Skyroo...');
+        const data = await fetchMostSearched('skyroo');
 
         console.log('📊 [MOST SEARCHED] Raw Firebase data:', data);
         console.log('📊 [MOST SEARCHED] Data count:', data ? data.length : 0);

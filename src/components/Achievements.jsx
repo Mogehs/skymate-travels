@@ -3,9 +3,9 @@ import { ourAchievments } from "../assets/index.js";
 
 const Achievements = () => {
   return (
-    <section className="flex flex-col-reverse lg:flex-row justify-between w-full bg-white font-dm mt-15">
+    <section className="flex flex-col-reverse lg:flex-row justify-between w-full bg-white font-dm">
       {/* Left Image Section */}
-      <div className="w-full lg:w-1/2 h-full leading-none hidden lg:block mb-10">
+      <div className="w-full lg:w-1/2 h-full hidden lg:block leading-none my-10">
         <img
           src={ourAchievments}
           alt="Travel Collage"

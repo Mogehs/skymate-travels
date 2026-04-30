@@ -39,13 +39,12 @@ const Footer = () => {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 border-b border-orange-100 pb-8">
           <div className="mb-6 lg:mb-0">
             <div className="flex items-center mb-3">
-              <img src={logo} alt="Logo" className="w-16 h-16 mr-3" />
-              <div>
-                <h2 className="font-sansita font-bold text-2xl">Skymate</h2>
-                <p className="font-sansita text-lg text-[#EB662B]">
-                  Travels & Holidays
-                </p>
-              </div>
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-20 h-20 object-contain mr-3"
+              />
+              <div></div>
             </div>
             <p className="text-sm text-gray-600 max-w-md mt-2 font-dm">
               We make your travel dreams come true with personalized experiences

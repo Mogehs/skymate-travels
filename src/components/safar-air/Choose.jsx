@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   glob,
   coin,
@@ -6,88 +6,89 @@ import {
   date,
   group84,
   beautifulCollageTravel,
-} from '../../assets/safar-air/index.js';
-import { Shield, Award, Clock, CreditCard } from 'lucide-react';
+} from "../../assets/safar-air/index.js";
+import { Shield, Award, Clock, CreditCard } from "lucide-react";
 
 const features = [
   {
     icon: Shield,
-    title: 'Trusted By Thousands Of Travelers',
-    desc: 'Proven Reliability With Happy Travelers Worldwide.',
-    gradient: 'from-[#1E40AF] to-[#3B82F6]',
+    title: "Trusted Reliability",
+    desc: "Two decades of proven excellence and thousands of verified global testimonials.",
   },
   {
     icon: Award,
-    title: 'Exclusive Deals & Best Price Guarantee',
-    desc: 'Top Offers With Prices You Won\'t Find Elsewhere.',
-    gradient: 'from-[#3B82F6] to-[#60A5FA]',
+    title: "Elite Status",
+    desc: "Exclusive access to premium routes and best-in-class price guarantees.",
   },
   {
     icon: Clock,
-    title: '24/7 Personal Travel Concierge',
-    desc: 'Support Anytime, Anywhere — Always On.',
-    gradient: 'from-[#60A5FA] to-[#93C5FD]',
+    title: "Concierge Support",
+    desc: "24/7 dedicated personal travel associates at your immediate disposal.",
   },
   {
     icon: CreditCard,
-    title: 'One-Click Secure Booking',
-    desc: 'Fast, Safe, And Hassle-Free Reservations.',
-    gradient: 'from-[#F59E0B] to-[#FCD34D]',
+    title: "Seamless Transactions",
+    desc: "Secured, encrypted, and frictionless booking experiences for peace of mind.",
   },
 ];
 
 const WhyChooseUs = () => {
   return (
-    <section className='relative py-16 px-6 lg:px-20 bg-gradient-to-br from-white via-blue-50/40 to-amber-50/30 overflow-hidden font-inter'>
-      {/* Background decorative elements */}
-      <div className='absolute top-10 right-10 w-64 h-64 bg-gradient-to-br from-[#3B82F6]/10 to-[#F59E0B]/10 rounded-full blur-3xl'></div>
-      <div className='absolute bottom-10 left-10 w-72 h-72 bg-gradient-to-br from-[#1E40AF]/10 to-[#3B82F6]/10 rounded-full blur-3xl'></div>
-
-      <div className='relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12'>
-        {/* Left image section */}
-        <div className='w-full lg:w-1/2 flex justify-center'>
-          <div className='relative'>
-            <div className='absolute inset-0 bg-gradient-to-br from-[#1E40AF]/20 to-[#F59E0B]/20 rounded-3xl blur-xl'></div>
-            <img
-              src={beautifulCollageTravel}
-              alt='Travel Suitcase'
-              className='relative z-10 max-w-xs md:max-w-sm drop-shadow-2xl'
-            />
+    <section className="w-full bg-white py-10 lg:py-14 font-dm overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+          {/* Left image section */}
+          <div className="w-full lg:w-1/2 flex justify-center relative">
+            <div className="relative z-10">
+              <img
+                src={beautifulCollageTravel}
+                alt="Travel Suitcase"
+                className="max-w-[280px] md:max-w-sm drop-shadow-[0_20px_40px_rgba(0,0,0,0.08)] relative z-10 rounded-2xl"
+              />
+            </div>
+            {/* Ambient gradients */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-[#1E40AF]/5 to-[#F59E0B]/5 blur-3xl rounded-full -z-10"></div>
           </div>
-        </div>
 
-        {/* Right content */}
-        <div className='w-full lg:w-1/2 space-y-6'>
-          <div className='mb-8'>
-            <h2 className='text-4xl lg:text-5xl font-bold text-[#1E3A8A] mb-4 font-playfair'>
-              Why Choose Us
-            </h2>
-            <p className='text-gray-600 text-lg'>
-              Experience the difference with Safar Air International
-            </p>
-          </div>
-          
-          <div className='space-y-6'>
-            {features.map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <div
-                  key={index}
-                  className='group flex items-start gap-5 cursor-pointer hover:scale-105 sm:w-[95%] rounded-2xl transition-all duration-300 p-6 bg-white shadow-lg hover:shadow-2xl border border-blue-100/50'
-                >
-                  <div className={`p-4 bg-gradient-to-br ${item.gradient} rounded-xl group-hover:scale-110 transition-transform duration-300`}>
-                    <IconComponent className='w-6 h-6 text-white' />
+          {/* Right content */}
+          <div className="w-full lg:w-1/2 space-y-10">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-6 text-[#1E40AF]">
+                <Award className="w-3.5 h-3.5" />
+                <span className="text-[0.65rem] font-bold tracking-[0.25em] uppercase">
+                  Service Excellence
+                </span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-sansita font-bold text-slate-900 leading-tight mb-6">
+                Why select <br />
+                <span className="text-[#F59E0B]">Safar Air?</span>
+              </h2>
+              <p className="text-slate-500 text-base lg:text-lg font-light leading-relaxed max-w-lg">
+                We go beyond booking, providing a comprehensive travel ecosystem
+                designed for the most discerning global citizens.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10">
+              {features.map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <div key={index} className="group space-y-4">
+                    <div className="inline-flex p-3 rounded-2xl bg-slate-50 text-[#1E40AF] group-hover:bg-[#1E40AF] group-hover:text-white transition-all duration-500 shadow-sm">
+                      <IconComponent size={18} />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="font-sansita font-bold text-lg text-slate-900 leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-slate-400 font-light leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
                   </div>
-                  <div className='flex-1'>
-                    <h3 className='font-bold text-lg text-[#1E3A8A] mb-2 group-hover:text-[#1E40AF] transition-colors'>
-                      {item.title}
-                    </h3>
-                    <p className='text-sm text-gray-600 leading-relaxed'>{item.desc}</p>
-                  </div>
-                  <div className={`w-1 h-full bg-gradient-to-b ${item.gradient} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -96,4 +97,3 @@ const WhyChooseUs = () => {
 };
 
 export default WhyChooseUs;
-

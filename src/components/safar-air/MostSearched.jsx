@@ -12,64 +12,11 @@ import { fetchMostSearched } from '../../services/packageService';
 import { manila, dubai, france, himalya } from '../../assets/safar-air/index.js';
 import Loader from '../common/Loader';
 
-const fallbackCities = [
-  {
-    name: 'Manila',
-    imageUrl: manila,
-    rating: 5.0,
-    reviews: 35,
-    price: '$150',
-  },
-  {
-    name: 'Dubai',
-    imageUrl: dubai,
-    rating: 5.0,
-    reviews: 35,
-    price: '$150',
-  },
-  {
-    name: 'Paris',
-    imageUrl: france,
-    rating: 5.0,
-    reviews: 35,
-    price: '$150',
-  },
-  {
-    name: 'Himalaya',
-    imageUrl: himalya,
-    rating: 5.0,
-    reviews: 35,
-    price: '$150',
-  },
-  {
-    name: 'London',
-    imageUrl:
-      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=600&fit=crop',
-    rating: 4.9,
-    reviews: 42,
-    price: '$180',
-  },
-  {
-    name: 'Tokyo',
-    imageUrl:
-      'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop',
-    rating: 4.8,
-    reviews: 38,
-    price: '$200',
-  },
-  {
-    name: 'New York',
-    imageUrl:
-      'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=800&h=600&fit=crop',
-    rating: 4.9,
-    reviews: 45,
-    price: '$220',
-  },
-];
+
 
 export default function MostSearched({ openGlobalModal }) {
   const swiperRef = useRef(null);
-  const [cities, setCities] = useState(fallbackCities);
+  const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -80,7 +27,7 @@ export default function MostSearched({ openGlobalModal }) {
 
     const loadCities = async () => {
       try {
-        const data = await fetchMostSearched();
+        const data = await fetchMostSearched('safar-air');
 
         if (data && data.length > 0) {
           const mappedData = data.map((city) => ({
@@ -128,7 +75,7 @@ export default function MostSearched({ openGlobalModal }) {
 
       {loading ? (
         <Loader message='Loading Popular Destinations...' />
-      ) : (
+      ) : cities.length > 0 ? (
         <div className='relative max-w-7xl mx-auto'>
           <Swiper
             modules={[Autoplay]}
@@ -213,7 +160,7 @@ export default function MostSearched({ openGlobalModal }) {
             <CircleArrowRight className='w-6 h-6' />
           </button>
         </div>
-      )}
+      ) : null}
     </section>
   );
 }

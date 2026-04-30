@@ -42,7 +42,7 @@ const AboutPage = () => {
       </section>
 
       {/* Breadcrumb */}
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-20 py-6">
+      <div className="max-w-[1536px] mx-auto px-4 py-4">
         <nav className="text-sm text-gray-600 font-dm">
           <Link to="/" className="hover:text-orange-500 transition-colors">
             Home
@@ -56,13 +56,13 @@ const AboutPage = () => {
       <section className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-20 py-16">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold font-sansita text-gray-900 mb-6">
-            What We're About
+            Our Mission
           </h2>
           <div className="max-w-4xl mx-auto">
             <p className="text-2xl md:text-4xl font-dm text-gray-800 leading-relaxed mb-6">
-              We're a team of people in the{" "}
+              We are a team of{" "}
               <span className="text-orange-500 font-semibold">
-                know about travel
+                passionate travel experts
               </span>
             </p>
             <p className="text-lg md:text-xl text-gray-600 font-dm leading-relaxed">
@@ -99,7 +99,7 @@ const AboutPage = () => {
             </div>
             <div className="relative h-[500px] md:h-[600px] lg:h-[700px]">
               {/* First Portrait - Lower Right (Larger) */}
-              <div className="absolute bottom-0 right-0 w-72 h-96 md:w-80 md:h-[450px] lg:w-96 lg:h-[550px] overflow-hidden shadow-2xl z-10">
+              <div className="absolute bottom-0 right-0 w-72 h-96 md:w-80 md:h-[450px] lg:w-96 lg:h-[550px] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] z-10 transition-shadow duration-300 hover:shadow-[0_45px_70px_-15px_rgba(0,0,0,0.7)]">
                 <img
                   src={ourValuesBegin2}
                   alt="Traveler exploring"
@@ -109,7 +109,7 @@ const AboutPage = () => {
               </div>
 
               {/* Second Portrait - Upper Left (Overlapping) */}
-              <div className="absolute top-0 left-0 w-64 h-80 md:w-72 md:h-96 lg:w-80 lg:h-[450px] overflow-hidden shadow-2xl z-20">
+              <div className="absolute top-0 left-0 w-64 h-80 md:w-72 md:h-96 lg:w-80 lg:h-[450px] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] z-20 transition-shadow duration-300 hover:shadow-[0_45px_70px_-15px_rgba(0,0,0,0.7)]">
                 <img
                   src={ourValuesBegin}
                   alt="Happy traveler"

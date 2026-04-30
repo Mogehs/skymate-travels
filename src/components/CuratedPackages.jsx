@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { fetchCuratedPackages } from "../services/packageService";
 import {
   pkg1Jpg,
@@ -17,25 +17,45 @@ import {
   pkg8Jpg,
 } from "../assets/index.js";
 
-// Fallback static data in case Firebase data is not available
-const fallbackPackages = [
-  { title: "Thailand 5 Days Tour", imageUrl: pkg1Jpg },
-  { title: "Baku", imageUrl: pkg2Jpg },
-  { title: "E-Visa", imageUrl: pkg3Jpg },
-  { title: "Amercia Visa", imageUrl: pkg4Jpg },
-  { title: "Visit Visa Dubai", imageUrl: pkg5Jpg },
-  { title: "Europe Visa", imageUrl: pkg6Jpg },
-  { title: "London Tour", imageUrl: pkg7Jpg },
-  { title: "UK Visa", imageUrl: pkg8Jpg },
-];
 
-const CuratedPackages = ({ openGlobalModal }) => {
+
+const CuratedPackages = ({ openGlobalModal, brand = 'skymate' }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const theme = {
+    skymate: {
+      primary: "text-orange-500",
+      accent: "text-[#EB662B]",
+      border: "border-[#EB662B]",
+      country: "text-orange-400",
+      btnHover: "hover:text-[#EB662B]"
+    },
+    skyroo: {
+      primary: "text-[#0ea5e9]",
+      accent: "text-[#0ea5e9]",
+      border: "border-[#0ea5e9]",
+      country: "text-sky-400",
+      btnHover: "hover:text-[#0ea5e9]"
+    },
+    'safar-air': {
+      primary: "text-[#1E40AF]",
+      accent: "text-[#F59E0B]",
+      border: "border-[#F59E0B]",
+      country: "text-[#F59E0B]",
+      btnHover: "hover:text-[#1E40AF]"
+    }
+  }[brand] || {
+    primary: "text-orange-500",
+    accent: "text-[#EB662B]",
+    border: "border-[#EB662B]",
+    country: "text-orange-400",
+    btnHover: "hover:text-[#EB662B]"
+  };
 
   // Track window width for breakpoint checks
   useEffect(() => {
@@ -48,47 +68,34 @@ const CuratedPackages = ({ openGlobalModal }) => {
     const loadPackages = async () => {
       try {
         setLoading(true);
-        console.log("🔍 [CURATED] Starting to fetch data...");
-        const data = await fetchCuratedPackages();
-
-        console.log("📊 [CURATED] Raw Firebase data:", data);
-        console.log("📊 [CURATED] Data count:", data ? data.length : 0);
+        console.log(`🔍 [CURATED] Starting to fetch data for ${brand}...`);
+        
+        const { fetchTopDestinations } = await import("../services/packageService");
+        const data = await fetchTopDestinations(brand);
 
         if (data && data.length > 0) {
-          console.log("✅ [CURATED] Using Firebase data");
-          console.log("📋 [CURATED] Sample item structure:", data[0]);
-
-          const mappedData = data.map((pkg, index) => {
-            console.log(`📦 [CURATED] Mapping package ${index + 1}:`, pkg);
-            return {
-              title: pkg.title || pkg.name,
-              imageUrl: pkg.imageUrl,
-            };
-          });
-          console.log("✅ [CURATED] Final mapped data:", mappedData);
+          const mappedData = data.map((pkg) => ({
+            title: pkg.title || pkg.name,
+            imageUrl: pkg.imageUrl,
+            country: pkg.country || pkg.location,
+            price: pkg.price,
+            duration: pkg.duration,
+          }));
           setPackages(mappedData);
         } else {
-          console.log(
-            "❌ [CURATED] No Firebase data found, using fallback data",
-          );
-          console.log(
-            "📋 [CURATED] Fallback data count:",
-            fallbackPackages.length,
-          );
-          setPackages(fallbackPackages);
+          setPackages([]);
         }
       } catch (err) {
         console.error("🚨 [CURATED] Error loading packages:", err);
         setError(err.message);
-        setPackages(fallbackPackages);
+        setPackages([]);
       } finally {
         setLoading(false);
-        console.log("✅ [CURATED] Loading completed");
       }
     };
 
     loadPackages();
-  }, []);
+  }, [brand]);
 
   // Minimum items required for carousel based on screen size
   const getMinItemsRequired = () => {
@@ -99,12 +106,19 @@ const CuratedPackages = ({ openGlobalModal }) => {
 
   const shouldShowCarousel = packages.length >= getMinItemsRequired();
 
-  if (loading) {
-    return (
-      <section className="py-12 md:py-20 flex flex-col justify-center px-4 md:px-12 lg:px-20 font-dm max-w-[1536px] mx-auto">
-        <h2 className="text-3xl font-semibold text-right text-gray-800 mb-8">
-          Explore Our <span className="text-orange-500">Curated Packages</span>
-        </h2>
+  return (
+    <section className="py-12 md:py-20 flex flex-col justify-center px-4 md:px-12 lg:px-20 font-dm max-w-[1536px] mx-auto overflow-hidden bg-white">
+      <h2 className="text-3xl font-semibold text-right text-gray-800 mb-8">
+        Explore Our <span className={theme.primary}>Curated Packages</span>
+      </h2>
+
+      {error && (
+        <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded">
+          <p>Unable to load packages from server. Showing cached data.</p>
+        </div>
+      )}
+
+      {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, index) => (
             <div
@@ -117,23 +131,7 @@ const CuratedPackages = ({ openGlobalModal }) => {
             </div>
           ))}
         </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="py-12 md:py-20 flex flex-col justify-center px-4 md:px-12 lg:px-20 font-dm max-w-[1536px] mx-auto overflow-hidden bg-white">
-      <h2 className="text-3xl font-semibold text-right text-gray-800 mb-8">
-        Explore Our <span className="text-orange-500">Curated Packages</span>
-      </h2>
-
-      {error && (
-        <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded">
-          <p>Unable to load packages from server. Showing cached data.</p>
-        </div>
-      )}
-
-      {shouldShowCarousel ? (
+      ) : shouldShowCarousel ? (
         <div className="relative flex-1 flex items-center">
           {/* Custom Nav Buttons */}
           <div className="absolute top-1/2 -translate-y-1/2 left-[-32px] md:left-[-40px] z-10">
@@ -201,7 +199,7 @@ const CuratedPackages = ({ openGlobalModal }) => {
                     </h3>
 
                     {/* Button reveals on hover */}
-                    <button className="opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 text-sm font-medium text-white/90 hover:text-[#EB662B] border-b border-[#EB662B] pb-1 uppercase tracking-widest">
+                    <button className={`opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 text-sm font-medium text-white/90 ${theme.btnHover} border-b ${theme.border} pb-1 uppercase tracking-widest`}>
                       Book Now
                     </button>
                   </div>
@@ -210,12 +208,12 @@ const CuratedPackages = ({ openGlobalModal }) => {
             ))}
           </Swiper>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      ) : packages.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {packages.map((pkg, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden cursor-pointer h-[500px] w-full bg-gray-100"
+              className="group relative overflow-hidden rounded-2xl cursor-pointer h-[400px] w-full bg-gray-100 shadow-md hover:shadow-xl transition-all duration-300"
               onClick={() => openGlobalModal(pkg.title)}
             >
               <img
@@ -224,22 +222,35 @@ const CuratedPackages = ({ openGlobalModal }) => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
 
-              {/* Minimalistic Gradient Mask (Bottom to Center) */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-all duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-all duration-300" />
 
-              {/* Content - Bottom Aligned */}
-              <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col items-start justify-end transform translate-y-12 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                <h3 className="text-white text-2xl font-bold font-sansita mb-2 tracking-wide">
+              <div className="absolute bottom-0 left-0 w-full p-5 flex flex-col items-start justify-end transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                {pkg.country && (
+                  <span className={`text-[10px] uppercase tracking-widest ${theme.country} font-bold mb-1`}>
+                    {pkg.country}
+                  </span>
+                )}
+                <h3 className="text-white text-xl font-bold font-sansita mb-2 tracking-wide line-clamp-1">
                   {pkg.title}
                 </h3>
-
-                {/* Button reveals on hover */}
-                <button className="opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 text-sm font-medium text-white/90 hover:text-[#EB662B] border-b border-[#EB662B] pb-1 uppercase tracking-widest">
-                  Book Now
-                </button>
+                
+                <div className="flex items-center justify-between w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <span className="text-white/90 text-sm font-bold">{pkg.price}</span>
+                  <button className={`text-xs font-medium text-white/90 ${theme.btnHover} border-b ${theme.border} pb-1 uppercase tracking-widest`}>
+                    Book Now
+                  </button>
+                </div>
               </div>
             </div>
           ))}
+        </div>
+      ) : (
+        <div className="text-center py-20 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
+          <Sparkles className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">New Experiences Coming Soon</h3>
+          <p className="text-gray-500 max-w-md mx-auto">
+            We are currently curating the most exclusive travel packages for {brand === 'skymate' ? 'Skymate' : brand === 'skyroo' ? 'Skyroo' : 'Safar Air'}. Check back soon for hand-picked destinations.
+          </p>
         </div>
       )}
     </section>

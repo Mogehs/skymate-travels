@@ -32,7 +32,7 @@ export default function Umrah({ openGlobalModal }) {
     const loadPackages = async () => {
       try {
         setLoading(true);
-        const data = await fetchUmrahPackages();
+        const data = await fetchUmrahPackages('skyroo');
 
         if (data && data.length > 0) {
           const mappedData = data.map((pkg) => ({

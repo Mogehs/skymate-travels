@@ -1,17 +1,20 @@
-// src/firebase.js
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDgCglHgC8U3_ry3XXZpjp49QgbzoyWCyI',
-  authDomain: 'skymate-admin-panel.firebaseapp.com',
-  projectId: 'skymate-admin-panel',
-  storageBucket: 'skymate-admin-panel.appspot.com',
-  messagingSenderId: '1033105376117',
-  appId: '1:1033105376117:web:36d2e155600629082c093c',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
-export { app, db };
+export { app, db, auth, storage };

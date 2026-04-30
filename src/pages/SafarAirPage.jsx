@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Sparkles } from "lucide-react";
+import bgWallpaper from "../assets/images/bg-wallpaper.jpg";
 import Navbar from "../components/common/Navbar";
 import Hero from "../components/safar-air/Hero";
 import PopularTourTypes from "../components/safar-air/Popular";
 import AboutUs from "../components/safar-air/About";
 import WhyChooseUs from "../components/safar-air/Choose";
-import Umrah from "../components/safar-air/Umrah";
-import MostSearched from "../components/safar-air/MostSearched";
-import BestDeals from "../components/safar-air/BestDeals";
+import Umrah from "../components/Umrah";
+import MostSearched from "../components/MostSearched";
+import BestDeals from "../components/BestDeals";
 import Footer from "../components/common/Footer";
-import Testimonials from "../components/safar-air/Testimonials";
-import Destinations from "../components/safar-air/Destinations";
-import CuratedPackages from "../components/safar-air/CuratedPackages";
-import Map from "../components/safar-air/Map";
-import DestinationHighlights from "../components/safar-air/Destination";
+import Testimonials from "../components/Testimonials";
+import Destinations from "../components/Destinations";
+import CuratedPackages from "../components/CuratedPackages";
+import Map from "../components/Map";
+import DestinationHighlights from "../components/Destination";
 import ContactUs from "../components/safar-air/ContactUs";
-import BookingForm from "../components/safar-air/BookingForm";
+import BookingForm from "../components/BookingForm";
 import ScrollToTop from "../components/safar-air/ScrollToTop";
 import {
   debugFirebaseConnection,
@@ -141,25 +144,57 @@ const SafarAirPage = () => {
       )}
 
       <div
-        className={`max-w-[1536px] mx-auto transition-all duration-1000 ease-out ${
+        className={`w-full transition-all duration-1000 ease-out ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         <Navbar />
         <Hero openGlobalModal={openGlobalModal} />
-        <PopularTourTypes />
-        <AboutUs />
-        <WhyChooseUs />
-        <Umrah openGlobalModal={openGlobalModal} />
-        <MostSearched openGlobalModal={openGlobalModal} />
-        <BestDeals />
-        <CuratedPackages openGlobalModal={openGlobalModal} />
-        <DestinationHighlights />
-        <Testimonials />
-        <Destinations />
-        <Map />
-        <ContactUs />
-        <Footer />
+
+        <div className="w-full">
+          {/* <PopularTourTypes /> */}
+          <AboutUs />
+          {/* <WhyChooseUs /> */}
+          <Umrah openGlobalModal={openGlobalModal} brand="safar-air" />
+          <MostSearched openGlobalModal={openGlobalModal} brand="safar-air" />
+          <BestDeals brand="safar-air" />
+          <CuratedPackages openGlobalModal={openGlobalModal} brand="safar-air" />
+          <DestinationHighlights brand="safar-air" />
+          <Testimonials brand="safar-air" />
+          <Destinations brand="safar-air" />
+          <Map brand="safar-air" />
+          {/* Final CTA Section */}
+          <section
+            className="py-20 w-full md:w-[98%] mx-auto rounded-2xl relative flex items-center justify-center overflow-hidden mb-8"
+            style={{
+              backgroundImage: `url(${bgWallpaper})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/50"></div>
+
+            <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-20 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold font-sansita text-white mb-6">
+                Your World. Your Trips.
+              </h2>
+              <p className="text-xl text-white/90 font-dm max-w-3xl mx-auto mb-8 leading-relaxed">
+                Like a perfectly tailored suit, each trip we plan is different;
+                just as each traveller is different. We're here to help you
+                experience the world on your terms.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 bg-white text-orange-600 px-8 py-4 rounded-full font-semibold font-dm text-lg hover:bg-gray-100 transition-colors shadow-xl"
+              >
+                <Sparkles size={20} />
+                Start Your Journey
+              </Link>
+            </div>
+          </section>
+          {/* <Footer /> */}
+        </div>
       </div>
 
       {/* Global Modal - Rendered at root level for proper positioning */}

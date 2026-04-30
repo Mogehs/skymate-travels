@@ -10,270 +10,18 @@ import {
 import { MapPin, Calendar, Star } from "lucide-react";
 import { fetchDestinationsMonthContent } from "../../services/packageService";
 
-const fallbackDestinations = {
-  London: [
-    {
-      image: dest1,
-      title: "Big Ben & Westminster",
-      description:
-        "Iconic clock tower and parliamentary buildings along the River Thames",
-      rating: 4.8,
-      bestTime: "March - May",
-      category: "Historical",
-    },
-    {
-      image: dest2,
-      title: "Tower Bridge",
-      description: "Victorian bridge with stunning views of London skyline",
-      rating: 4.6,
-      bestTime: "June - August",
-      category: "Architecture",
-    },
-    {
-      image: dest3,
-      title: "Buckingham Palace",
-      description: "Official residence of the British monarch",
-      rating: 4.7,
-      bestTime: "July - September",
-      category: "Royal",
-    },
-    {
-      image: dest4,
-      title: "London Eye",
-      description: "Giant observation wheel offering panoramic city views",
-      rating: 4.5,
-      bestTime: "April - October",
-      category: "Entertainment",
-    },
-    {
-      image: dest5,
-      title: "Hyde Park",
-      description: "One of London's largest parks with beautiful gardens",
-      rating: 4.4,
-      bestTime: "May - September",
-      category: "Nature",
-    },
-    {
-      image: dest6,
-      title: "Covent Garden",
-      description: "Famous market area with street performers and shops",
-      rating: 4.3,
-      bestTime: "Year-round",
-      category: "Shopping",
-    },
-  ],
-  Bangkok: [
-    {
-      image: dest1,
-      title: "Grand Palace",
-      description: "Stunning royal residence with intricate Thai architecture",
-      rating: 4.9,
-      bestTime: "November - February",
-      category: "Cultural",
-    },
-    {
-      image: dest2,
-      title: "Wat Phra Kaew",
-      description: "Temple of the Emerald Buddha, Thailand's most sacred site",
-      rating: 4.8,
-      bestTime: "November - February",
-      category: "Religious",
-    },
-    {
-      image: dest3,
-      title: "Chao Phraya River",
-      description: "Lifeblood of Bangkok with floating markets and temples",
-      rating: 4.6,
-      bestTime: "November - March",
-      category: "Nature",
-    },
-    {
-      image: dest4,
-      title: "Chatuchak Market",
-      description: "World's largest weekend market with 15,000+ stalls",
-      rating: 4.5,
-      bestTime: "Weekends",
-      category: "Shopping",
-    },
-    {
-      image: dest5,
-      title: "Khao San Road",
-      description: "Famous backpacker street with vibrant nightlife",
-      rating: 4.4,
-      bestTime: "Evening",
-      category: "Entertainment",
-    },
-    {
-      image: dest6,
-      title: "Lumphini Park",
-      description: "Bangkok's largest park with lakes and gardens",
-      rating: 4.3,
-      bestTime: "Early morning",
-      category: "Nature",
-    },
-  ],
-  England: [
-    {
-      image: dest1,
-      title: "Stonehenge",
-      description: "Ancient stone circle with mysterious origins",
-      rating: 4.7,
-      bestTime: "June - August",
-      category: "Historical",
-    },
-    {
-      image: dest2,
-      title: "Lake District",
-      description: "Beautiful national park with mountains and lakes",
-      rating: 4.8,
-      bestTime: "May - September",
-      category: "Nature",
-    },
-    {
-      image: dest3,
-      title: "Cotswolds",
-      description: "Picturesque villages with honey-colored stone houses",
-      rating: 4.6,
-      bestTime: "April - October",
-      category: "Scenic",
-    },
-    {
-      image: dest4,
-      title: "York Minster",
-      description: "Magnificent Gothic cathedral in historic York",
-      rating: 4.7,
-      bestTime: "March - November",
-      category: "Religious",
-    },
-    {
-      image: dest5,
-      title: "Cornwall Coast",
-      description: "Dramatic coastline with sandy beaches and cliffs",
-      rating: 4.5,
-      bestTime: "June - September",
-      category: "Coastal",
-    },
-    {
-      image: dest6,
-      title: "Peak District",
-      description: "Rolling hills and valleys perfect for hiking",
-      rating: 4.4,
-      bestTime: "April - October",
-      category: "Outdoor",
-    },
-  ],
-  Singapore: [
-    {
-      image: dest1,
-      title: "Marina Bay Sands",
-      description: "Iconic hotel with infinity pool and city views",
-      rating: 4.8,
-      bestTime: "February - April",
-      category: "Luxury",
-    },
-    {
-      image: dest2,
-      title: "Gardens by the Bay",
-      description: "Spectacular nature park with giant domes",
-      rating: 4.9,
-      bestTime: "February - April",
-      category: "Nature",
-    },
-    {
-      image: dest3,
-      title: "Sentosa Island",
-      description: "Entertainment island with beaches and attractions",
-      rating: 4.7,
-      bestTime: "February - April",
-      category: "Entertainment",
-    },
-    {
-      image: dest4,
-      title: "Chinatown",
-      description: "Vibrant cultural district with temples and markets",
-      rating: 4.6,
-      bestTime: "Year-round",
-      category: "Cultural",
-    },
-    {
-      image: dest5,
-      title: "Orchard Road",
-      description: "Famous shopping street with luxury boutiques",
-      rating: 4.5,
-      bestTime: "Year-round",
-      category: "Shopping",
-    },
-    {
-      image: dest6,
-      title: "Singapore Zoo",
-      description: "World-class zoo with open-concept exhibits",
-      rating: 4.4,
-      bestTime: "February - April",
-      category: "Family",
-    },
-  ],
-  Italy: [
-    {
-      image: dest1,
-      title: "Colosseum",
-      description: "Ancient amphitheater symbol of Roman Empire",
-      rating: 4.9,
-      bestTime: "March - May",
-      category: "Historical",
-    },
-    {
-      image: dest2,
-      title: "Venice Canals",
-      description: "Romantic city built on water with gondola rides",
-      rating: 4.8,
-      bestTime: "April - June",
-      category: "Romantic",
-    },
-    {
-      image: dest3,
-      title: "Florence Cathedral",
-      description: "Renaissance masterpiece with stunning architecture",
-      rating: 4.7,
-      bestTime: "March - May",
-      category: "Cultural",
-    },
-    {
-      image: dest4,
-      title: "Amalfi Coast",
-      description: "Dramatic coastline with colorful villages",
-      rating: 4.8,
-      bestTime: "April - October",
-      category: "Scenic",
-    },
-    {
-      image: dest5,
-      title: "Tuscany",
-      description: "Rolling hills with vineyards and olive groves",
-      rating: 4.6,
-      bestTime: "May - September",
-      category: "Countryside",
-    },
-    {
-      image: dest6,
-      title: "Pompeii",
-      description: "Ancient city preserved by volcanic eruption",
-      rating: 4.5,
-      bestTime: "March - May",
-      category: "Archaeological",
-    },
-  ],
-};
+
 
 const Destinations = () => {
-  const [activeTab, setActiveTab] = useState("London");
+  const [activeTab, setActiveTab] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filteredDestinations, setFilteredDestinations] = useState([]);
-  const [data, setData] = useState(fallbackDestinations);
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const items = await fetchDestinationsMonthContent();
+      const items = await fetchDestinationsMonthContent('skyroo');
       if (items.length) {
         // Group by city title if provided; fallback to 'Featured'
         const grouped = {};
@@ -290,11 +38,16 @@ const Destinations = () => {
           });
         });
         setData(grouped);
-        setActiveTab(Object.keys(grouped)[0] || "Featured");
+        setActiveTab(Object.keys(grouped)[0] || "");
+      } else {
+        setData({});
+        setActiveTab("");
       }
       setLoading(false);
     })();
   }, []);
+
+  if (!loading && Object.keys(data).length === 0) return null;
 
   // Get unique categories for the selected city
   const categories = [

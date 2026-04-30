@@ -113,7 +113,7 @@ const DestinationHighlights = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await fetchDestinationHighlightsContent();
+      const data = await fetchDestinationHighlightsContent('skyroo');
       if (data.length) {
         setItems(
           data.map((d) => ({

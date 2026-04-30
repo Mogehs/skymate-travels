@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { createPortal } from "react-dom";
-import { ArrowUp, MessageCircle } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowUp, MessageCircle, Sparkles } from "lucide-react";
+import bgWallpaper from "../assets/images/bg-wallpaper.jpg";
 import "../assets/skyroo/scrollbar.css";
 import Hero from "../components/skyroo/Hero";
 import AboutUs from "../components/skyroo/About";
-import Umrah from "../components/skyroo/Umrah";
-import CuratedPackages from "../components/skyroo/CuratedPackages";
-import Destinations from "../components/skyroo/Destinations";
-import Testimonials from "../components/skyroo/Testimonials";
+import Umrah from "../components/Umrah";
+import CuratedPackages from "../components/CuratedPackages";
+import Destinations from "../components/Destinations";
+import Testimonials from "../components/Testimonials";
 import MapSection from "../components/skyroo/Map";
 import ContactUs from "../components/skyroo/ContactUs";
+import MostSearched from "../components/MostSearched";
+import BestDeals from "../components/BestDeals";
+import DestinationHighlights from "../components/Destination";
+import Map from "../components/Map";
 
 const SkyrooPage = () => {
   const location = useLocation();
@@ -138,19 +143,57 @@ const SkyrooPage = () => {
         <AboutUs />
 
         {/* Curated Packages - Premium Selection */}
-        <CuratedPackages openGlobalModal={openGlobalModal} />
+        <CuratedPackages openGlobalModal={openGlobalModal} brand="skyroo" />
 
         {/* Umrah - Specialized Service */}
-        <Umrah openGlobalModal={openGlobalModal} />
+        <Umrah openGlobalModal={openGlobalModal} brand="skyroo" />
+
+        {/* Most Searched & Best Deals - Added for production grade completeness */}
+        <MostSearched openGlobalModal={openGlobalModal} brand="skyroo" />
+        <BestDeals brand="skyroo" />
+
+        {/* Destination Highlights */}
+        <DestinationHighlights brand="skyroo" />
 
         {/* Destinations - Inspiration */}
-        {/* <Destinations /> */}
+        <Destinations brand="skyroo" />
 
         {/* Testimonials - Social Proof */}
-        <Testimonials />
+        <Testimonials brand="skyroo" />
+
+        <MapSection />
 
         {/* Contact Footer */}
-        <ContactUs />
+        {/* Final CTA Section */}
+        <section
+          className="py-20 w-full md:w-[98%] mx-auto rounded-2xl relative flex items-center justify-center overflow-hidden mb-8"
+          style={{
+            backgroundImage: `url(${bgWallpaper})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-20 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold font-sansita text-white mb-6">
+              Your World. Your Trips.
+            </h2>
+            <p className="text-xl text-white/90 font-dm max-w-3xl mx-auto mb-8 leading-relaxed">
+              Like a perfectly tailored suit, each trip we plan is different;
+              just as each traveller is different. We're here to help you
+              experience the world on your terms.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 bg-white text-orange-600 px-8 py-4 rounded-full font-semibold font-dm text-lg hover:bg-gray-100 transition-colors shadow-xl"
+            >
+              <Sparkles size={20} />
+              Start Your Journey
+            </Link>
+          </div>
+        </section>
       </main>
 
       {/* Global enquiry modal */}

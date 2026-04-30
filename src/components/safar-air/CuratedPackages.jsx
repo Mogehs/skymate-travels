@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
-import { fetchCuratedPackages } from '../../services/packageService';
-import Loader from '../common/Loader';
+import React, { useState, useEffect, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { fetchCuratedPackages } from "../../services/packageService";
+import Loader from "../common/Loader";
 import {
   pkg1Jpg,
   pkg2Jpg,
@@ -14,34 +15,25 @@ import {
   pkg6Jpg,
   pkg7Jpg,
   pkg8Jpg,
-} from '../../assets/safar-air/index.js';
+  hero,
+} from "../../assets/safar-air/index.js";
 
-const fallbackPackages = [
-  { title: 'Thailand 5 Days Tour', imageUrl: pkg1Jpg },
-  { title: 'Baku Premium Package', imageUrl: pkg2Jpg },
-  { title: 'E-Visa Services', imageUrl: pkg3Jpg },
-  { title: 'America Visa', imageUrl: pkg4Jpg },
-  { title: 'Dubai Visit Visa', imageUrl: pkg5Jpg },
-  { title: 'Europe Visa Package', imageUrl: pkg6Jpg },
-  { title: 'London Tour', imageUrl: pkg7Jpg },
-  { title: 'UK Visa Services', imageUrl: pkg8Jpg },
-];
+
 
 const CuratedPackages = ({ openGlobalModal }) => {
-  const [swiperInstance, setSwiperInstance] = useState(null);
-  const [packages, setPackages] = useState(fallbackPackages);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set a timeout to stop loading after 2 seconds regardless
     const loadingTimeout = setTimeout(() => {
       setLoading(false);
     }, 2000);
 
     const loadPackages = async () => {
       try {
-        const data = await fetchCuratedPackages();
-
+        const data = await fetchCuratedPackages('safar-air');
         if (data && data.length > 0) {
           const mappedData = data.map((pkg) => ({
             title: pkg.title || pkg.name,
@@ -50,8 +42,7 @@ const CuratedPackages = ({ openGlobalModal }) => {
           setPackages(mappedData);
         }
       } catch (err) {
-        console.error('Error loading curated packages:', err);
-        // Keep fallback data
+        console.error("Error loading curated packages:", err);
       } finally {
         clearTimeout(loadingTimeout);
         setLoading(false);
@@ -62,105 +53,128 @@ const CuratedPackages = ({ openGlobalModal }) => {
     return () => clearTimeout(loadingTimeout);
   }, []);
 
-  return (
-    <section className='py-20 px-6 lg:px-20 bg-gradient-to-br from-white via-amber-50/30 to-blue-50/30 font-inter'>
-      <div className='text-center mb-12'>
-        <div className='inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-amber-100 rounded-full mb-4'>
-          <Sparkles className='text-[#F59E0B] w-4 h-4' />
-          <span className='text-sm text-[#1E40AF] font-semibold tracking-wide uppercase'>
-            Hand Picked
-          </span>
-        </div>
-        <h2 className='text-4xl md:text-5xl font-bold text-[#1E3A8A] mb-4 font-playfair'>
-          Curated{' '}
-          <span className='bg-gradient-to-r from-[#1E40AF] to-[#F59E0B] bg-clip-text text-transparent'>
-            Packages
-          </span>
-        </h2>
-        <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-          Specially designed travel packages tailored to your needs
-        </p>
+  const CardItem = ({ pkg }) => (
+    <div
+      className="relative group overflow-hidden cursor-pointer h-[450px] w-full bg-slate-900 border-x border-white/5"
+      onClick={() => openGlobalModal(pkg.title)}
+    >
+      <img
+        src={pkg.imageUrl}
+        alt={pkg.title}
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+      />
+
+      {/* Modern Gradient Mask */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent opacity-90 transition-all duration-300" />
+
+      {/* Hover Reveal Content */}
+      <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col items-start justify-end transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+        <h3 className="text-white text-2xl font-bold font-sansita mb-3 uppercase tracking-wide leading-tight">
+          {pkg.title}
+        </h3>
+
+        <button className="opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 text-[0.6rem] font-bold text-[#F59E0B] border-b border-[#F59E0B] pb-1 uppercase tracking-[0.3em]">
+          Secure Experience
+        </button>
       </div>
 
-      {loading ? (
-        <Loader message='Loading Curated Packages...' />
-      ) : (
-        <div className='relative max-w-7xl mx-auto'>
-          <Swiper
-            modules={[Autoplay]}
-            navigation={false}
-            onSwiper={setSwiperInstance}
-            autoplay={{ delay: 3500, disableOnInteraction: false }}
-            loop={true}
-            slidesPerView={1}
-            spaceBetween={20}
-            breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 20 },
-              768: { slidesPerView: 3, spaceBetween: 24 },
-              1024: { slidesPerView: 4, spaceBetween: 30 },
-              1280: { slidesPerView: 5, spaceBetween: 32 },
-            }}
-          >
-            {packages.map((pkg, index) => (
-              <SwiperSlide key={index} className='!pb-4 !pt-4'>
-                <div
-                  onClick={() => openGlobalModal(pkg.title)}
-                  className='group relative overflow-hidden rounded-3xl cursor-pointer shadow-2xl hover:shadow-[0_20px_60px_rgba(30,64,175,0.35)] transition-all duration-500 hover:-translate-y-2 border-2 border-blue-100 hover:border-[#F59E0B]'
-                >
-                  {/* Professional height image container */}
-                  <div className='relative h-80'>
-                    <img
-                      src={pkg.imageUrl}
-                      alt={pkg.title}
-                      className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 min-h-80'
-                    />
-                    <div className='absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent'></div>
-
-                    {/* Premium badge */}
-                    <div className='absolute top-4 right-4 bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] text-white px-4 py-2 rounded-xl font-bold shadow-xl text-sm backdrop-blur-sm border border-white/30'>
-                      ✨ Curated
-                    </div>
-
-                    {/* Content */}
-                    <div className='absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent'>
-                      <h3 className='text-white font-bold text-xl font-playfair group-hover:text-[#F59E0B] transition-colors leading-tight drop-shadow-lg'>
-                        {pkg.title}
-                      </h3>
-                      <p className='text-white/80 text-sm mt-2 font-medium'>
-                        Click to explore package
-                      </p>
-                    </div>
-
-                    {/* Premium Hover Overlay */}
-                    <div className='absolute inset-0 bg-gradient-to-br from-[#1E40AF]/95 via-[#3B82F6]/95 to-[#F59E0B]/95 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center gap-3'>
-                      <div className='w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white/40'>
-                        <ArrowRight className='w-8 h-8 text-white' />
-                      </div>
-                      <span className='text-white font-bold text-xl drop-shadow-lg'>
-                        Explore Package
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* Navigation Buttons */}
-          <button
-            onClick={() => swiperInstance?.slidePrev()}
-            className='absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-xl hover:bg-gradient-to-r hover:from-[#1E40AF] hover:to-[#3B82F6] hover:text-white transition-all duration-300 border-2 border-blue-200'
-          >
-            <ChevronLeft className='w-5 h-5' />
-          </button>
-          <button
-            onClick={() => swiperInstance?.slideNext()}
-            className='absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-xl hover:bg-gradient-to-r hover:from-[#1E40AF] hover:to-[#3B82F6] hover:text-white transition-all duration-300 border-2 border-blue-200'
-          >
-            <ChevronRight className='w-5 h-5' />
-          </button>
+      {/* Top Badge - Minimalist */}
+      <div className="absolute top-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded text-[0.55rem] font-bold text-white uppercase tracking-[0.2em]">
+          Signature Selection
         </div>
-      )}
+      </div>
+    </div>
+  );
+
+  return (
+    <section className="relative w-full py-16 lg:py-24 font-dm overflow-hidden bg-slate-950">
+      {/* Background Image & Overlay */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img
+          src={hero}
+          alt="background"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950" />
+      </div>
+
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-8">
+        {/* Header - Left Aligned */}
+        <div className="text-left mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full mb-6 text-white/80">
+            <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
+            <span className="text-[0.6rem] font-bold tracking-[0.3em] uppercase">
+              Curated Portfolio
+            </span>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-sansita font-bold text-white leading-tight">
+            Elite <span className="text-[#F59E0B]">Voyages</span> & <br />{" "}
+            Signature Experiences
+          </h2>
+          <p className="text-slate-400 text-sm lg:text-base font-light mt-6 max-w-xl leading-relaxed">
+            Discover our restricted collection of the world's most extraordinary
+            journeys, meticulously tailored for the global citizen.
+          </p>
+        </div>
+
+        {loading ? (
+          <div className="py-20 flex justify-center">
+            <Loader message="Assembling Collection..." />
+          </div>
+        ) : packages.length > 0 ? (
+          <div className="relative">
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              onBeforeInit={(swiper) => {
+                swiper.params.navigation.prevEl = prevRef.current;
+                swiper.params.navigation.nextEl = nextRef.current;
+              }}
+              navigation={{
+                prevEl: prevRef.current,
+                nextEl: nextRef.current,
+              }}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+              }}
+              loop={true}
+              slidesPerView={1}
+              spaceBetween={2}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 },
+              }}
+              className="w-full"
+            >
+              {packages.map((pkg, index) => (
+                <SwiperSlide key={index}>
+                  <CardItem pkg={pkg} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Minimal Side Navigation */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-[-20px] lg:left-[-60px] z-10 hidden sm:block">
+              <button
+                ref={prevRef}
+                className="p-3 text-slate-300 hover:text-[#1E40AF] transition-colors"
+              >
+                <ChevronLeft size={40} strokeWidth={1} />
+              </button>
+            </div>
+            <div className="absolute top-1/2 -translate-y-1/2 right-[-20px] lg:right-[-60px] z-10 hidden sm:block">
+              <button
+                ref={nextRef}
+                className="p-3 text-slate-300 hover:text-[#1E40AF] transition-colors"
+              >
+                <ChevronRight size={40} strokeWidth={1} />
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </div>
     </section>
   );
 };

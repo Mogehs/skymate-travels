@@ -1,66 +1,75 @@
-import React from 'react';
-import { Trophy, Award, Clock } from 'lucide-react';
+import React from "react";
+import { Trophy, Award, Clock } from "lucide-react";
 
 const Achievements = () => {
   const stats = [
     {
-      value: '20+K',
-      label: 'Successful Journeys Delivered',
+      value: "22k+",
+      label: "Bespoke Journeys",
       icon: Trophy,
-      gradient: 'from-[#1E40AF] to-[#3B82F6]',
+      sublabel: "Delivered since 2008",
     },
     {
-      value: '15+',
-      label: 'Prestigious Travel Awards Won',
+      value: "18+",
+      label: "Excellence Awards",
       icon: Award,
-      gradient: 'from-[#3B82F6] to-[#60A5FA]',
+      sublabel: "Industry leading status",
     },
     {
-      value: '15+',
-      label: 'Years Of Industry Excellence',
+      value: "15+",
+      label: "Years of Trust",
       icon: Clock,
-      gradient: 'from-[#F59E0B] to-[#FCD34D]',
+      sublabel: "Global expertise",
     },
   ];
 
   return (
-    <section className='px-6 py-16 lg:px-20 bg-gradient-to-br from-white to-blue-50/30'>
-      <div className='flex flex-col lg:flex-row lg:items-center gap-10 font-inter'>
-        {/* Left Heading */}
-        <div className='lg:w-1/3 text-center lg:text-left'>
-          <h2 className='text-4xl lg:text-5xl font-bold text-[#1E3A8A] leading-snug font-playfair mb-4'>
-            Our
-            <br />
-            <span className='bg-gradient-to-r from-[#1E40AF] to-[#F59E0B] bg-clip-text text-transparent'>
-              Achievements
-            </span>
-          </h2>
-          <p className='text-gray-600 text-lg mt-4'>
-            Excellence in every journey
-          </p>
-        </div>
+    <section className="w-full bg-slate-50/50 py-10 lg:py-14 font-dm overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 items-center">
+          {/* Left Heading */}
+          <div className="lg:col-span-1">
+            <h2 className="text-4xl font-sansita font-bold text-slate-900 leading-tight">
+              Our <br className="hidden lg:block" />
+              <span className="text-[#F59E0B]">Legacy</span>
+            </h2>
+            <p className="text-slate-500 text-sm mt-4 font-light leading-relaxed">
+              A decade and a half of crafting the extraordinary, recognized by
+              the world's most discerning travelers.
+            </p>
+          </div>
 
-        {/* Right Stats */}
-        <div className='flex flex-col sm:flex-row flex-wrap gap-6 lg:gap-8 justify-center lg:w-2/3'>
-          {stats.map((item, index) => {
-            const IconComponent = item.icon;
-            return (
-              <div
-                key={index}
-                className='group bg-white border-2 border-blue-100 shadow-lg hover:shadow-2xl cursor-pointer hover:border-blue-300 transition-all duration-300 rounded-2xl px-6 py-8 text-center w-full sm:w-[220px] flex flex-col items-center hover:scale-105'
-              >
-                <div className={`p-4 mb-4 bg-gradient-to-br ${item.gradient} rounded-xl group-hover:scale-110 transition-transform duration-300`}>
-                  <IconComponent className='w-7 h-7 text-white' />
+          {/* Right Stats */}
+          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {stats.map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <div
+                  key={index}
+                  className="group relative bg-white border border-slate-100 p-8 rounded-[32px] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
+                >
+                  <div className="mb-6 inline-flex p-3 rounded-2xl bg-slate-50 text-[#1E40AF] group-hover:bg-[#1E40AF] group-hover:text-white transition-colors duration-500">
+                    <IconComponent size={20} />
+                  </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-3xl font-sansita font-bold text-slate-900">
+                      {item.value}
+                    </h3>
+                    <p className="text-xs font-bold uppercase tracking-widest text-[#F59E0B]">
+                      {item.label}
+                    </p>
+                    <p className="text-[0.7rem] text-slate-400 font-light pt-2">
+                      {item.sublabel}
+                    </p>
+                  </div>
+
+                  {/* Subtle accent corner */}
+                  <div className="absolute top-4 right-4 w-1.5 h-1.5 bg-slate-100 rounded-full group-hover:bg-[#F59E0B] transition-colors" />
                 </div>
-                <h3 className={`text-3xl font-extrabold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent mb-3`}>
-                  {item.value}
-                </h3>
-                <p className='text-sm text-gray-700 leading-snug font-medium'>
-                  {item.label}
-                </p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -68,4 +77,3 @@ const Achievements = () => {
 };
 
 export default Achievements;
-

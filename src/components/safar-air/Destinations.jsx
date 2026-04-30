@@ -11,89 +11,11 @@ import { MapPin, Calendar, Star, Navigation2 } from "lucide-react";
 import { fetchDestinationsMonthContent } from "../../services/packageService";
 import Loader from "../common/Loader";
 
-const fallbackDestinations = {
-  Dubai: [
-    {
-      image: dest1,
-      title: "Burj Khalifa",
-      description: "World's tallest building with breathtaking views",
-      rating: 4.9,
-      bestTime: "November - March",
-      category: "Iconic",
-    },
-    {
-      image: dest2,
-      title: "Dubai Mall",
-      description: "Luxury shopping and entertainment destination",
-      rating: 4.8,
-      bestTime: "Year-round",
-      category: "Shopping",
-    },
-    {
-      image: dest3,
-      title: "Palm Jumeirah",
-      description: "Artificial archipelago with luxury resorts",
-      rating: 4.7,
-      bestTime: "October - April",
-      category: "Beach",
-    },
-    {
-      image: dest4,
-      title: "Desert Safari",
-      description: "Thrilling desert adventure experience",
-      rating: 4.8,
-      bestTime: "October - March",
-      category: "Adventure",
-    },
-    {
-      image: dest5,
-      title: "Dubai Marina",
-      description: "Stunning waterfront with dining and entertainment",
-      rating: 4.6,
-      bestTime: "November - April",
-      category: "Lifestyle",
-    },
-    {
-      image: dest6,
-      title: "Gold Souk",
-      description: "Traditional market with exquisite jewelry",
-      rating: 4.5,
-      bestTime: "Year-round",
-      category: "Cultural",
-    },
-  ],
-  Tokyo: [
-    {
-      image: dest1,
-      title: "Tokyo Tower",
-      description: "Iconic landmark with panoramic city views",
-      rating: 4.7,
-      bestTime: "March - May",
-      category: "Landmark",
-    },
-    {
-      image: dest2,
-      title: "Shibuya Crossing",
-      description: "World's busiest pedestrian crossing",
-      rating: 4.6,
-      bestTime: "Year-round",
-      category: "Urban",
-    },
-    {
-      image: dest3,
-      title: "Senso-ji Temple",
-      description: "Ancient Buddhist temple in Asakusa",
-      rating: 4.8,
-      bestTime: "March - November",
-      category: "Cultural",
-    },
-  ],
-};
+
 
 const Destinations = () => {
-  const [selectedCity, setSelectedCity] = useState("Dubai");
-  const [destinationsData, setDestinationsData] =
-    useState(fallbackDestinations);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [destinationsData, setDestinationsData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -104,7 +26,7 @@ const Destinations = () => {
 
     (async () => {
       try {
-        const data = await fetchDestinationsMonthContent();
+        const data = await fetchDestinationsMonthContent('safar-air');
         if (Array.isArray(data) && data.length > 0) {
           const transformedData = {};
           data.forEach((doc) => {
@@ -117,10 +39,12 @@ const Destinations = () => {
             setDestinationsData(transformedData);
             setSelectedCity(Object.keys(transformedData)[0]);
           }
+        } else {
+          setDestinationsData({});
         }
       } catch (error) {
         console.error("Error fetching destinations:", error);
-        // Keep fallback data
+        setDestinationsData({});
       } finally {
         clearTimeout(loadingTimeout);
         setLoading(false);
@@ -133,6 +57,8 @@ const Destinations = () => {
   const cities = Object.keys(destinationsData);
   const rawDestinations = destinationsData[selectedCity];
   const destinations = Array.isArray(rawDestinations) ? rawDestinations : [];
+
+  if (!loading && cities.length === 0) return null;
 
   return (
     <section className="py-20 px-6 lg:px-20 bg-gradient-to-br from-white to-blue-50/30 font-inter">

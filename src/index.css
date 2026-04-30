@@ -1,22 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Sansita";
-  src: url("/fonts/sansita/Sansita-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Dm-sans";
-  src: url("/fonts/dm-sans/DMSans-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
 @theme {
-  --font-sansita: "Sansita";
-  --font-dm: "Dm-sans";
+  --font-sansita: "Poppins", sans-serif;
+  --font-dm: "Poppins", sans-serif;
 }
 
 /* Smooth page loading and rendering optimizations */
@@ -144,8 +131,8 @@ video[preload="metadata"] {
   --sky-accent-soft: rgba(11, 162, 224, 0.08);
   --sky-ink: #0f172a;
   --sky-muted: #6b7280;
-  --font-heading: "Space Grotesk", system-ui, -apple-system, sans-serif;
-  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Poppins", sans-serif;
 }
 
 html {

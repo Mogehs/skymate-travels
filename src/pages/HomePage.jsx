@@ -21,13 +21,13 @@ const HomePage = ({ openGlobalModal }) => {
       <AboutUs />
       <WhyChooseUs />
       <Achievements />
-      <Umrah openGlobalModal={openGlobalModal} />
-      <MostSearched openGlobalModal={openGlobalModal} />
-      <BestDeals />
-      <CuratedPackages openGlobalModal={openGlobalModal} />
-      <DestinationHighlights />
-      <Testimonials />
-      <Destinations />
+      <Umrah openGlobalModal={openGlobalModal} brand="skymate" />
+      <MostSearched openGlobalModal={openGlobalModal} brand="skymate" />
+      <BestDeals brand="skymate" />
+      <CuratedPackages openGlobalModal={openGlobalModal} brand="skymate" />
+      <DestinationHighlights brand="skymate" />
+      <Testimonials brand="skymate" />
+      <Destinations brand="skymate" />
       <Map />
     </>
   );

@@ -17,16 +17,7 @@ import {
   pkg8Jpg,
 } from "../../assets/skyroo/index.js";
 
-const fallbackImages = [
-  pkg1Jpg,
-  pkg2Jpg,
-  pkg3Jpg,
-  pkg4Jpg,
-  pkg5Jpg,
-  pkg6Jpg,
-  pkg7Jpg,
-  pkg8Jpg,
-];
+
 
 const CuratedPackages = ({ openGlobalModal }) => {
   const prevRef = useRef(null);
@@ -47,15 +38,14 @@ const CuratedPackages = ({ openGlobalModal }) => {
     const loadPackages = async () => {
       try {
         setLoading(true);
-        console.log("🔍 [CURATED] Starting to fetch data...");
-        const data = await fetchCuratedPackages();
+        console.log("🔍 [CURATED] Starting to fetch data for Skyroo...");
+        const data = await fetchCuratedPackages('skyroo');
 
         if (data && data.length > 0) {
           const mappedData = data.map((pkg, index) => {
             return {
               title: pkg.title || pkg.name,
-              imageUrl:
-                pkg.imageUrl || fallbackImages[index % fallbackImages.length],
+              imageUrl: pkg.imageUrl,
             };
           });
           setPackages(mappedData);

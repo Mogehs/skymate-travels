@@ -1,143 +1,140 @@
+import React, { useState } from "react";
 import { sendEmail } from "../../utils/sendEmailSafarAir";
-import { contact } from "../../assets/safar-air/index.js";
 import { Mail, Phone, MessageSquare, Send } from "lucide-react";
 
 const ContactUs = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await sendEmail(e);
+      // Feedback is handled by the sendEmail utility or basic browser alerts usually in this setup
+      // but we can add minor state feedback if needed.
+    } catch (err) {
+      console.error("Form submission error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section
       id="contact"
-      className="px-4 md:px-6 lg:px-20 py-20 bg-gradient-to-br from-white via-blue-50/30 to-amber-50/20"
+      className="w-full bg-white font-dm border-t border-slate-100 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-amber-100 rounded-full mb-4">
-            <MessageSquare className="text-[#1E40AF] w-4 h-4" />
-            <span className="text-sm text-[#1E40AF] font-semibold tracking-wide uppercase">
-              Get in Touch
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1E3A8A] mb-4 font-playfair">
-            Let's{" "}
-            <span className="bg-gradient-to-r from-[#1E40AF] to-[#F59E0B] bg-clip-text text-transparent">
-              Connect!
-            </span>
-          </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Start your journey with us today. Our travel experts are ready to
-            help you plan your perfect adventure.
-          </p>
+      <div className="flex flex-col lg:flex-row min-h-[600px] max-w-[1440px] mx-auto border-x border-slate-50">
+        {/* Map Section - Sharp, Full Height */}
+        <div className="w-full lg:w-1/2 min-h-[400px] lg:min-h-auto relative bg-slate-50">
+          <iframe
+            title="Safar Air Location"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3476.324838426097!2d71.6917!3d29.3956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDIzJzQ0LjIiTiA3McKwNDEnMzAuMSJF!5e0!3m2!1sen!2s!4v1645432123456!5m2!1sen!2s"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
+          ></iframe>
         </div>
 
-        {/* Content Section */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
-          {/* Image Section */}
-          <div className="w-full lg:w-5/12 flex justify-center">
-            <div className="relative w-full max-w-lg">
-              {/* Background gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF]/10 to-[#F59E0B]/10 rounded-[40px] blur-3xl"></div>
-
-              {/* Main image container */}
-              <div className="relative bg-gradient-to-br from-blue-100 via-blue-50 to-amber-100 rounded-[40px] p-8 shadow-2xl">
-                <img
-                  src={contact}
-                  alt="Travel Experience"
-                  className="w-full h-auto object-contain drop-shadow-2xl relative z-10"
-                />
-              </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-[#F59E0B] to-[#FCD34D] rounded-full blur-2xl opacity-60"></div>
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-full blur-2xl opacity-60"></div>
+        {/* Form Section - Sharp, Minimalist */}
+        <div className="w-full lg:w-1/2 p-8 lg:p-20 flex flex-col justify-center bg-white border-l border-slate-50">
+          <div className="w-full">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-8 text-[#1E40AF]">
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span className="text-[0.65rem] font-bold tracking-[0.25em] uppercase">
+                Contact Desk
+              </span>
             </div>
-          </div>
 
-          {/* Form Section */}
-          <div className="w-full lg:w-7/12">
-            <div className="bg-white rounded-3xl p-8 md:p-10 shadow-2xl border-2 border-blue-100 hover:border-blue-300 transition-all duration-300">
-              <div className="flex items-start gap-4 mb-8">
-                <div className="p-4 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-2xl shadow-lg">
-                  <MessageSquare className="text-white w-7 h-7" />
-                </div>
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-[#1E3A8A] font-playfair mb-2">
-                    Have a Question?
-                  </h3>
-                  <p className="text-gray-600 text-base">
-                    Fill out the form below and our travel experts will get back
-                    to you shortly.
-                  </p>
-                </div>
-              </div>
-              <form className="space-y-6" onSubmit={sendEmail}>
-                <input type="text" name="_honey" style={{ display: "none" }} />
-                <input type="hidden" name="_captcha" value="false" />
-                <input
-                  type="hidden"
-                  name="_subject"
-                  value="New Contact Form Inquiry - Safar Air"
-                />
-                <input
-                  type="hidden"
-                  name="time"
-                  value={new Date().toLocaleString()}
-                />
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 font-sansita leading-tight">
+              Begin Your <br />
+              <span className="text-[#F59E0B]">New Chapter</span>
+            </h2>
 
-                <div className="relative">
+            <div className="mb-12 space-y-4 text-sm text-slate-500 font-light">
+              <p className="flex items-center gap-3">
+                <Phone size={14} className="text-[#1E40AF]" />
+                <span className="font-medium text-slate-900">Desk:</span> +92
+                300 6501006
+              </p>
+              <p className="flex items-center gap-3">
+                <Mail size={14} className="text-[#1E40AF]" />
+                <span className="font-medium text-slate-900">Email:</span>{" "}
+                safarairintl@gmail.com
+              </p>
+            </div>
+
+            <form className="space-y-8" onSubmit={handleSubmit}>
+              <input type="text" name="_honey" style={{ display: "none" }} />
+              <input type="hidden" name="_captcha" value="false" />
+              <input
+                type="hidden"
+                name="_subject"
+                value="Safar Air - Premium Inquiry"
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="relative group">
                   <input
                     type="text"
                     name="name"
-                    placeholder="Your Name *"
+                    placeholder="Full Name"
                     required
-                    className="w-full border-2 border-blue-100 rounded-xl p-4 pl-4 focus:outline-none focus:ring-2 focus:ring-[#1E40AF] focus:border-transparent transition-all hover:border-blue-200"
+                    className="w-full border-b border-slate-200 bg-transparent text-slate-900 placeholder-slate-300 py-3 focus:outline-none focus:border-[#1E40AF] transition-colors rounded-none font-dm text-sm"
                   />
+                  <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#1E40AF] transition-all duration-300 group-focus-within:w-full"></div>
                 </div>
 
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1E40AF] w-5 h-5" />
+                <div className="relative group">
                   <input
                     type="email"
                     name="email"
-                    placeholder="Email Address *"
+                    placeholder="Email Address"
                     required
-                    className="w-full border-2 border-blue-100 rounded-xl p-4 pl-12 focus:outline-none focus:ring-2 focus:ring-[#1E40AF] focus:border-transparent transition-all hover:border-blue-200"
+                    className="w-full border-b border-slate-200 bg-transparent text-slate-900 placeholder-slate-300 py-3 focus:outline-none focus:border-[#1E40AF] transition-colors rounded-none font-dm text-sm"
                   />
+                  <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#1E40AF] transition-all duration-300 group-focus-within:w-full"></div>
                 </div>
+              </div>
 
-                <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1E40AF] w-5 h-5" />
-                  <input
-                    type="text"
-                    name="phone"
-                    placeholder="Phone Number"
-                    className="w-full border-2 border-blue-100 rounded-xl p-4 pl-12 focus:outline-none focus:ring-2 focus:ring-[#1E40AF] focus:border-transparent transition-all hover:border-blue-200"
-                  />
-                </div>
+              <div className="relative group">
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Contact Number"
+                  className="w-full border-b border-slate-200 bg-transparent text-slate-900 placeholder-slate-300 py-3 focus:outline-none focus:border-[#1E40AF] transition-colors rounded-none font-dm text-sm"
+                />
+                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#1E40AF] transition-all duration-300 group-focus-within:w-full"></div>
+              </div>
 
+              <div className="relative group">
                 <textarea
                   name="message"
-                  placeholder="Your Message"
-                  rows={6}
-                  className="w-full border-2 border-blue-100 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1E40AF] focus:border-transparent transition-all resize-none hover:border-blue-200"
+                  placeholder="How can we curate your journey?"
+                  rows={3}
+                  className="w-full border-b border-slate-200 bg-transparent text-slate-900 placeholder-slate-300 py-3 focus:outline-none focus:border-[#1E40AF] transition-colors resize-none rounded-none font-dm text-sm"
                 ></textarea>
-
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-size-200 bg-pos-0 hover:bg-pos-100 text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-500 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl premium-button group"
-                >
-                  <span>SEND MESSAGE</span>
-                  <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:scale-110 transition-all" />
-                </button>
-              </form>
-
-              {/* Additional info */}
-              <div className="mt-8 pt-6 border-t border-blue-100">
-                <p className="text-sm text-gray-500 text-center">
-                  🔒 Your information is secure and will never be shared with
-                  third parties
-                </p>
+                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#1E40AF] transition-all duration-300 group-focus-within:w-full"></div>
               </div>
-            </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="inline-flex items-center gap-3 bg-slate-900 hover:bg-[#1E40AF] text-white px-10 py-4 font-bold text-xs uppercase tracking-[0.2em] transition-all duration-500 rounded-none shadow-xl shadow-slate-100 disabled:opacity-50"
+              >
+                <span>
+                  {isSubmitting ? "Orchestrating..." : "Submit Inquiry"}
+                </span>
+                <Send
+                  size={14}
+                  className={`transition-transform duration-500 ${isSubmitting ? "" : "group-hover:translate-x-1"}`}
+                />
+              </button>
+            </form>
           </div>
         </div>
       </div>

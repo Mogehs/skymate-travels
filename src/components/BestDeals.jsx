@@ -6,102 +6,73 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { fetchBestDeals } from "../services/packageService";
 import { japan, italy, usa, europe, bgWallpaper } from "../assets/index.js"; // Import bgWallpaper
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"; // Import icons
+import { ChevronLeft, ChevronRight, Star, Sparkles } from "lucide-react"; // Import icons
 import BookingForm from "./BookingForm"; // Import BookingForm modal
 
-// Fallback static data
-const fallbackDeals = [
-  {
-    title: "Kyoto, Japan",
-    days: "10 Days Trip",
-    price: "$5.42k",
-    imageUrl: japan,
-    rating: 4.8,
-  },
-  {
-    title: "Rome, Italy",
-    days: "12 Days Trip",
-    price: "$4.2k",
-    imageUrl: italy,
-    rating: 4.7,
-  },
-  {
-    title: "New York City, USA",
-    days: "28 Days Trip",
-    price: "$15k",
-    imageUrl: usa,
-    rating: 4.9,
-  },
-  {
-    title: "Full Europe",
-    days: "28 Days Trip",
-    price: "$15k",
-    imageUrl: europe,
-    rating: 4.8,
-  },
-  {
-    title: "Bali, Indonesia",
-    days: "7 Days Trip",
-    price: "$3.5k",
-    imageUrl: japan, // Reusing existing image as placeholder
-    rating: 4.6,
-  },
-];
-
-export default function BestDeals() {
+export default function BestDeals({ brand = 'skymate' }) {
   const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState("");
 
+  const theme = {
+    skymate: {
+      accent: "text-[#EB662B]",
+      btn: "group-hover:bg-[#EB662B]",
+      icon: "text-orange-400"
+    },
+    skyroo: {
+      accent: "text-[#0ea5e9]",
+      btn: "group-hover:bg-[#0ea5e9]",
+      icon: "text-sky-400"
+    },
+    'safar-air': {
+      accent: "text-[#F59E0B]",
+      btn: "group-hover:bg-[#1E40AF]",
+      icon: "text-[#F59E0B]"
+    }
+  }[brand] || {
+    accent: "text-[#EB662B]",
+    btn: "group-hover:bg-[#EB662B]",
+    icon: "text-orange-400"
+  };
+
   useEffect(() => {
     const loadDeals = async () => {
       try {
         setLoading(true);
-        console.log("🔍 [BEST DEALS] Starting to fetch data...");
-        const data = await fetchBestDeals();
+        const data = await fetchBestDeals(brand);
 
         if (data && data.length > 0) {
-          console.log("✅ [BEST DEALS] Using Firebase data");
-          // Map Firebase data to component format
           const mappedData = data.map((deal) => ({
-            title: deal.title || deal.name,
-            days: deal.days || deal.duration,
+            id: deal.id,
+            title: deal.title,
+            days: deal.days,
             price: deal.price,
             imageUrl: deal.imageUrl,
-            rating: deal.rating || 4.8, // Add default rating if missing
+            rating: deal.rating || 4.8,
           }));
           setDeals(mappedData);
         } else {
-          console.log("❌ [BEST DEALS] Using fallback data");
-          setDeals(fallbackDeals);
+          setDeals([]);
         }
       } catch (err) {
-        console.error("🚨 [BEST DEALS] Error loading packages:", err);
+        console.error("Error loading deals:", err);
         setError(err.message);
-        setDeals(fallbackDeals);
+        setDeals([]);
       } finally {
         setLoading(false);
       }
     };
 
     loadDeals();
-  }, []);
+  }, [brand]);
 
   const handleBookNow = (dealTitle) => {
     setSelectedPackage(dealTitle);
     setIsModalOpen(true);
   };
-
-  if (loading) {
-    return (
-      <section className="relative w-full py-4 font-dm overflow-hidden bg-gray-900">
-        {/* Background Image Loading State */}
-        <div className="absolute inset-0 bg-gray-900 animate-pulse"></div>
-      </section>
-    );
-  }
 
   return (
     <>
@@ -126,84 +97,93 @@ export default function BestDeals() {
             {/* LEFT COLUMN: Title Only */}
             <div className="w-full lg:w-auto min-w-[300px] flex-shrink-0 flex items-start mb-8 lg:mb-0">
               <h2 className="text-3xl md:text-4xl font-sansita font-bold text-white leading-tight shadow-black/50 drop-shadow-md whitespace-nowrap">
-                Best Deal <span className="text-[#EB662B]">Destinations</span>
+                Best Deal <span className={theme.accent}>Destinations</span>
               </h2>
             </div>
 
-            {/* RIGHT COLUMN: Swiper Carousel */}
+            {/* RIGHT COLUMN: Swiper Carousel or Loading or Empty */}
             <div className="w-full lg:w-3/4 min-w-0">
-              <Swiper
-                modules={[Navigation, Autoplay]}
-                spaceBetween={24}
-                slidesPerView={1}
-                navigation={{
-                  nextEl: ".swiper-button-next-custom",
-                  prevEl: ".swiper-button-prev-custom",
-                }}
-                autoplay={{
-                  delay: 3500,
-                  disableOnInteraction: false,
-                }}
-                breakpoints={{
-                  640: { slidesPerView: 2 },
-                  1024: { slidesPerView: 2.5 },
-                  1280: { slidesPerView: 3 },
-                }}
-                className="h-full !pb-6 !px-2" // Padding for shadows
-              >
-                {deals.map((deal, idx) => (
-                  <SwiperSlide key={idx} className="h-auto">
-                    <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col group">
-                      {/* Image */}
-                      <div className="relative h-64 overflow-hidden">
-                        <img
-                          src={deal.imageUrl}
-                          alt={deal.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                          <Star
-                            size={14}
-                            className="fill-yellow-400 text-yellow-400"
+              {loading ? (
+                <div className="h-64 bg-white/10 animate-pulse rounded-3xl"></div>
+              ) : deals.length === 0 ? (
+                <div className="text-center py-12 bg-white/10 backdrop-blur-md rounded-3xl border border-white/10">
+                  <Sparkles className={`w-10 h-10 ${theme.icon} opacity-50 mx-auto mb-3`} />
+                  <p className="text-white/80 text-sm max-w-xs mx-auto px-4">
+                    We are currently negotiating the best rates to bring you exclusive deals for {brand === 'skymate' ? 'Skymate' : brand === 'skyroo' ? 'Skyroo' : 'Safar Air'}.
+                  </p>
+                </div>
+              ) : (
+                <Swiper
+                  modules={[Navigation, Autoplay]}
+                  spaceBetween={24}
+                  slidesPerView={1}
+                  navigation={{
+                    nextEl: ".swiper-button-next-custom",
+                    prevEl: ".swiper-button-prev-custom",
+                  }}
+                  autoplay={{
+                    delay: 3500,
+                    disableOnInteraction: false,
+                  }}
+                  breakpoints={{
+                    640: { slidesPerView: 2 },
+                    1024: { slidesPerView: 2.5 },
+                    1280: { slidesPerView: 3 },
+                  }}
+                  className="h-full !pb-6 !px-2" // Padding for shadows
+                >
+                  {deals.map((deal, idx) => (
+                    <SwiperSlide key={idx} className="h-auto">
+                      <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col group">
+                        {/* Image */}
+                        <div className="relative h-64 overflow-hidden">
+                          <img
+                            src={deal.imageUrl}
+                            alt={deal.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                           />
-                          <span className="text-sm font-bold text-gray-800">
-                            {deal.rating || 4.8}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-6 flex-1 flex flex-col">
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">
-                          {deal.title}
-                        </h3>
-                        <p className="text-[#EB662B] font-medium mb-4 text-sm uppercase tracking-wider">
-                          {deal.days}
-                        </p>
-
-                        <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
-                          <div>
-                            <p className="text-xs text-gray-500">
-                              Starting from
-                            </p>
-                            <p className="text-2xl font-bold text-gray-900">
-                              {deal.price}
-                            </p>
+                          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <Star
+                              size={14}
+                              className="fill-yellow-400 text-yellow-400"
+                            />
+                            <span className="text-sm font-bold text-gray-800">
+                              {deal.rating || 4.8}
+                            </span>
                           </div>
-                          <button
-                            onClick={() => handleBookNow(deal.title)}
-                            className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 group-hover:bg-[#EB662B] group-hover:text-white transition-colors cursor-pointer"
-                          >
-                            <ChevronRight size={20} />
-                          </button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 flex-1 flex flex-col">
+                          <h3 className="text-xl font-bold text-gray-800 mb-2">
+                            {deal.title}
+                          </h3>
+                          <p className={`${theme.accent} font-medium mb-4 text-sm uppercase tracking-wider`}>
+                            {deal.days}
+                          </p>
+
+                          <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+                            <div>
+                              <p className="text-xs text-gray-500">
+                                Starting from
+                              </p>
+                              <p className="text-2xl font-bold text-gray-900">
+                                {deal.price}
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => handleBookNow(deal.title)}
+                              className={`w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 ${theme.btn} group-hover:text-white transition-colors cursor-pointer`}
+                            >
+                              <ChevronRight size={20} />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-
-                {/* Custom Navigation buttons if needed, or rely on Swiper defaults */}
-              </Swiper>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              )}
             </div>
           </div>
         </div>

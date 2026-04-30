@@ -6,48 +6,7 @@ import "swiper/css/pagination";
 import { user1, user2, user3, commsVector } from "../../assets/skyroo/index.js";
 import { fetchTestimonialsContent } from "../../services/packageService";
 
-const fallbackTestimonials = [
-  {
-    name: "John Doe",
-    image: user1,
-    rating: 5,
-    location: "New York",
-    message:
-      "Praesent non enim sed velit malesuada consectetur id a justo. Fusce quis eros sit amet enim laoreet dignissim.",
-  },
-  {
-    name: "Jane Smith",
-    image: user2,
-    rating: 5,
-    location: "London",
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.",
-  },
-  {
-    name: "Emily Johnson",
-    image: user3,
-    rating: 4,
-    location: "Paris",
-    message:
-      "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
-  },
-  {
-    name: "Michael Brown",
-    image: user1,
-    rating: 5,
-    location: "Berlin",
-    message:
-      "Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in.",
-  },
-  {
-    name: "Sarah Lee",
-    image: user2,
-    rating: 5,
-    location: "Tokyo",
-    message:
-      "Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Maecenas sed diam eget risus.",
-  },
-];
+
 
 const Testimonials = () => {
   const [items, setItems] = useState([]);
@@ -55,7 +14,7 @@ const Testimonials = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await fetchTestimonialsContent();
+      const data = await fetchTestimonialsContent('skyroo');
       if (data.length) {
         setItems(
           data.map((t) => ({
@@ -68,11 +27,13 @@ const Testimonials = () => {
           })),
         );
       } else {
-        setItems(fallbackTestimonials);
+        setItems([]);
       }
       setLoading(false);
     })();
   }, []);
+
+  if (!loading && items.length === 0) return null;
   return (
     <section
       className="relative py-16 px-4 md:px-12 lg:px-20 font-dm max-w-[1536px] mx-auto overflow-hidden"
@@ -106,7 +67,7 @@ const Testimonials = () => {
         }}
         className="pb-8"
       >
-        {(loading ? fallbackTestimonials : items).map((testimonial, index) => (
+        {items.map((testimonial, index) => (
           <SwiperSlide key={testimonial.id || index}>
             <div className="testimonial-card bg-white hover:shadow-2xl hover:shadow-[#0ba2e022] p-6 my-2 w-full max-w-sm mx-auto transition-all duration-300 cursor-grab active:cursor-grabbing h-fit rounded-3xl border border-slate-100 overflow-hidden group hover:-translate-y-1">
               <div className="flex items-center gap-4 mb-4">

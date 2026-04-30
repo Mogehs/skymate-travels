@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   CalendarDays,
   MapPin,
@@ -6,6 +7,9 @@ import {
   Users,
   MessageSquare,
   Plane,
+  Mail,
+  User,
+  Phone,
 } from "lucide-react";
 import { sendBookingEmail } from "../../utils/sendEmailSafarAir";
 
@@ -13,247 +17,245 @@ const BookingForm = ({
   onClose,
   packageName = "Explore Our Premium Packages",
 }) => {
+  useEffect(() => {
+    // Prevent scrolling on body when modal is open
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const handleSubmit = (e) => {
     sendBookingEmail(e);
     if (onClose) onClose();
   };
 
-  return (
+  const modalContent = (
     <div
-      className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: "100vw",
-        height: "100vh",
-        transform: "none",
-      }}
+      className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6"
+      style={{ isolation: "isolate" }}
     >
+      {/* Backdrop */}
       <div
-        className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto custom-scrollbar border-4 border-blue-100"
-        style={{
-          position: "relative",
-          transform: "none",
-        }}
+        className="absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity duration-300"
+        onClick={onClose}
+      />
+
+      {/* Modal Container */}
+      <div
+        className="relative w-full max-w-2xl rounded-[32px] bg-white text-slate-900 border border-white/20 shadow-[0_30px_100px_rgba(0,0,0,0.4)] overflow-hidden flex flex-col max-h-[94vh] animate-in fade-in zoom-in duration-300"
+        style={{ transform: "translateZ(0)" }}
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Header */}
-        <div className="bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#60A5FA] rounded-t-3xl p-8 border-b-4 border-blue-200 flex justify-between items-center sticky top-0 z-10">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-white/20 rounded-full">
-                <Plane className="text-white w-6 h-6 rotate-45" />
-              </div>
-              <h3 className="text-3xl font-playfair font-bold text-white">
-                Book Your Journey
+        <div className="overflow-y-auto scrollbar-hide p-6 sm:p-10 space-y-8 flex-1">
+          <header className="flex items-start justify-between gap-6">
+            <div className="flex-1">
+              <p className="text-[0.65rem] uppercase tracking-[0.4em] text-[#F59E0B] font-dm font-bold mb-3">
+                Bespoke travel brief
+              </p>
+              <h3 className="text-2xl sm:text-4xl font-sansita font-bold text-slate-900 leading-[1.1]">
+                Share your vision and <br className="hidden sm:block" />
+                we'll map the route
               </h3>
-            </div>
-            <p className="text-white/90 text-sm font-inter pl-12">
-              Fill in the details and let's make your dream vacation a reality
-            </p>
-          </div>
-          <button
-            onClick={onClose}
-            className="text-white/90 hover:text-white hover:bg-white/20 transition-all p-2 rounded-full"
-          >
-            <X size={28} />
-          </button>
-        </div>
-
-        {/* Modal Body */}
-        <div className="p-8">
-          {/* Selected Package Info */}
-          <div className="mb-8 p-6 bg-gradient-to-br from-blue-50 to-amber-50 rounded-2xl border-2 border-blue-100">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-lg">
-                <MapPin className="text-white w-5 h-5" />
+              <div className="mt-5 inline-flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-slate-50 border border-slate-100/80">
+                <MapPin size={16} className="text-[#1E40AF]" />
+                <span className="text-[0.75rem] font-dm font-medium text-slate-500 uppercase tracking-[0.1em]">
+                  Interest:{" "}
+                  <span className="text-slate-900 font-bold">
+                    {packageName}
+                  </span>
+                </span>
               </div>
-              <span className="text-sm font-semibold text-gray-600">
-                Selected Package
-              </span>
             </div>
-            <p className="text-xl font-bold text-[#1E3A8A] font-playfair ml-11">
-              {packageName}
-            </p>
-          </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="group w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-300 hover:text-slate-900 hover:border-slate-300 transition-all duration-300 bg-white shadow-sm flex-shrink-0"
+              aria-label="Close"
+            >
+              <X
+                size={22}
+                className="group-hover:rotate-90 transition-transform duration-300"
+              />
+            </button>
+          </header>
 
-          <form
-            onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Honeypot & Meta */}
             <input type="text" name="_honey" style={{ display: "none" }} />
             <input type="hidden" name="_captcha" value="false" />
             <input
               type="hidden"
               name="_subject"
-              value="New Booking Request - Safar Air International"
+              value={`New Safar Air Booking: ${packageName}`}
             />
+            <input type="hidden" name="package_name" value={packageName} />
             <input
               type="hidden"
               name="submission_time"
               value={new Date().toLocaleString()}
             />
-            <input type="hidden" name="package" value={packageName} />
 
-            {/* Full Name */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="name"
-                className="text-sm font-bold mb-2 text-[#1E3A8A] font-inter"
-              >
-                Full Name *
-              </label>
-              <div className="flex items-center gap-3 border-2 border-blue-100 rounded-xl px-4 py-3 focus-within:border-[#1E40AF] focus-within:ring-2 focus-within:ring-[#1E40AF]/20 transition-all">
-                <Users className="text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  placeholder="John Doe"
-                  className="w-full outline-none text-base"
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="space-y-2 font-dm">
+                <label className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-400 font-bold ml-1">
+                  Traveler Name
+                </label>
+                <div className="relative group/input">
+                  <User
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-[#F59E0B] transition-colors"
+                  />
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Full name"
+                    className="w-full rounded-2xl bg-slate-50/50 border border-slate-200/60 px-12 py-3.5 text-sm outline-none focus:border-[#F59E0B] focus:bg-white focus:ring-4 focus:ring-[#F59E0B]/5 transition-all placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2 font-dm">
+                <label className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-400 font-bold ml-1">
+                  Digital Reach
+                </label>
+                <div className="relative group/input">
+                  <Mail
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-[#F59E0B] transition-colors"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="Email address"
+                    className="w-full rounded-2xl bg-slate-50/50 border border-slate-200/60 px-12 py-3.5 text-sm outline-none focus:border-[#F59E0B] focus:bg-white focus:ring-4 focus:ring-[#F59E0B]/5 transition-all placeholder:text-slate-400"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Email */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="email"
-                className="text-sm font-bold mb-2 text-[#1E3A8A] font-inter"
-              >
-                Email Address *
-              </label>
-              <div className="flex items-center gap-3 border-2 border-blue-100 rounded-xl px-4 py-3 focus-within:border-[#1E40AF] focus-within:ring-2 focus-within:ring-[#1E40AF]/20 transition-all">
-                <MessageSquare className="text-gray-400 w-5 h-5" />
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder="john@example.com"
-                  className="w-full outline-none text-base"
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="space-y-2 font-dm">
+                <label className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-400 font-bold ml-1">
+                  Direct Line
+                </label>
+                <div className="relative group/input">
+                  <Phone
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-[#F59E0B] transition-colors"
+                  />
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    placeholder="+91 / +92 / etc."
+                    className="w-full rounded-2xl bg-slate-50/50 border border-slate-200/60 px-12 py-3.5 text-sm outline-none focus:border-[#F59E0B] focus:bg-white focus:ring-4 focus:ring-[#F59E0B]/5 transition-all placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2 font-dm">
+                <label className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-400 font-bold ml-1">
+                  Estimated Departure
+                </label>
+                <div className="relative group/input">
+                  <CalendarDays
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-[#F59E0B] transition-colors"
+                  />
+                  <input
+                    type="date"
+                    name="travelDate"
+                    className="w-full rounded-2xl bg-slate-50/50 border border-slate-200/60 px-12 py-3.5 text-sm outline-none focus:border-[#F59E0B] focus:bg-white focus:ring-4 focus:ring-[#F59E0B]/5 transition-all cursor-pointer text-slate-600 appearance-none"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Phone */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="phone"
-                className="text-sm font-bold mb-2 text-[#1E3A8A] font-inter"
-              >
-                Phone Number *
-              </label>
-              <div className="flex items-center gap-3 border-2 border-blue-100 rounded-xl px-4 py-3 focus-within:border-[#1E40AF] focus-within:ring-2 focus-within:ring-[#1E40AF]/20 transition-all">
-                <span className="text-gray-400">📞</span>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full outline-none text-base"
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="space-y-2 font-dm">
+                <label className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-400 font-bold ml-1">
+                  Traveler Count
+                </label>
+                <div className="relative group/input">
+                  <Users
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-[#F59E0B] transition-colors"
+                  />
+                  <input
+                    type="number"
+                    name="travelers"
+                    min="1"
+                    placeholder="E.g. 2"
+                    className="w-full rounded-2xl bg-slate-50/50 border border-slate-200/60 px-12 py-3.5 text-sm outline-none focus:border-[#F59E0B] focus:bg-white focus:ring-4 focus:ring-[#F59E0B]/5 transition-all placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2 font-dm">
+                <label className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-400 font-bold ml-1">
+                  Destination interest
+                </label>
+                <div className="relative group/input">
+                  <MapPin
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-[#F59E0B] transition-colors"
+                  />
+                  <input
+                    type="text"
+                    name="destination"
+                    placeholder="Dubai, UK, etc."
+                    className="w-full rounded-2xl bg-slate-50/50 border border-slate-200/60 px-12 py-3.5 text-sm outline-none focus:border-[#F59E0B] focus:bg-white focus:ring-4 focus:ring-[#F59E0B]/5 transition-all placeholder:text-slate-400"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Travel Date */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="travelDate"
-                className="text-sm font-bold mb-2 text-[#1E3A8A] font-inter"
-              >
-                Preferred Travel Date
+            <div className="space-y-2 font-dm">
+              <label className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-400 font-bold ml-1">
+                Luxury Nuances
               </label>
-              <div className="flex items-center gap-3 border-2 border-blue-100 rounded-xl px-4 py-3 focus-within:border-[#1E40AF] focus-within:ring-2 focus-within:ring-[#1E40AF]/20 transition-all">
-                <CalendarDays className="text-gray-400 w-5 h-5" />
-                <input
-                  type="date"
-                  id="travelDate"
-                  name="travelDate"
-                  className="w-full outline-none text-base"
+              <div className="relative group/input">
+                <MessageSquare
+                  size={18}
+                  className="absolute left-4 top-4 text-slate-400 group-focus-within/input:text-[#F59E0B] transition-colors"
                 />
-              </div>
-            </div>
-
-            {/* Number of Travelers */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="travelers"
-                className="text-sm font-bold mb-2 text-[#1E3A8A] font-inter"
-              >
-                Number of Travelers
-              </label>
-              <div className="flex items-center gap-3 border-2 border-blue-100 rounded-xl px-4 py-3 focus-within:border-[#1E40AF] focus-within:ring-2 focus-within:ring-[#1E40AF]/20 transition-all">
-                <Users className="text-gray-400 w-5 h-5" />
-                <input
-                  type="number"
-                  id="travelers"
-                  name="travelers"
-                  min="1"
-                  placeholder="2"
-                  className="w-full outline-none text-base"
-                />
-              </div>
-            </div>
-
-            {/* Destination */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="destination"
-                className="text-sm font-bold mb-2 text-[#1E3A8A] font-inter"
-              >
-                Preferred Destination
-              </label>
-              <div className="flex items-center gap-3 border-2 border-blue-100 rounded-xl px-4 py-3 focus-within:border-[#1E40AF] focus-within:ring-2 focus-within:ring-[#1E40AF]/20 transition-all">
-                <MapPin className="text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  id="destination"
-                  name="destination"
-                  placeholder="e.g., Dubai, Paris, Tokyo"
-                  className="w-full outline-none text-base"
-                />
-              </div>
-            </div>
-
-            {/* Special Requirements */}
-            <div className="flex flex-col md:col-span-2">
-              <label
-                htmlFor="specialRequests"
-                className="text-sm font-bold mb-2 text-[#1E3A8A] font-inter"
-              >
-                Special Requests or Questions
-              </label>
-              <div className="border-2 border-blue-100 rounded-xl px-4 py-3 focus-within:border-[#1E40AF] focus-within:ring-2 focus-within:ring-[#1E40AF]/20 transition-all">
                 <textarea
-                  id="specialRequests"
                   name="specialRequests"
-                  rows={4}
-                  placeholder="Let us know if you have any special requirements..."
-                  className="w-full outline-none text-base resize-none"
-                ></textarea>
+                  rows={3}
+                  placeholder="Preferred airlines, dietary notes, or cabin requirements..."
+                  className="w-full rounded-2xl bg-slate-50/50 border border-slate-200/60 px-12 py-4 text-sm outline-none focus:border-[#F59E0B] focus:bg-white focus:ring-4 focus:ring-[#F59E0B]/5 transition-all resize-none placeholder:text-slate-400"
+                />
               </div>
             </div>
 
-            {/* Submit Button */}
-            <div className="md:col-span-2">
+            <footer className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-4 border-t border-slate-100/60">
+              <div className="flex flex-col items-center sm:items-start">
+                <p className="text-[0.6rem] uppercase tracking-[0.25em] text-[#F59E0B] font-dm font-bold">
+                  Elite Service Promise
+                </p>
+                <p className="text-[0.75rem] font-dm text-slate-400 font-medium">
+                  Response within{" "}
+                  <span className="text-slate-900">2 business hours</span>
+                </p>
+              </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#60A5FA] hover:from-[#1E3A8A] hover:to-[#1E40AF] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl premium-button flex items-center justify-center gap-3 group"
+                className="w-full sm:w-auto px-10 py-4 lg:px-14 bg-slate-900 text-white font-dm font-bold text-sm rounded-2xl shadow-[0_15px_40px_rgba(15,23,42,0.2)] hover:shadow-[0_20px_50px_rgba(15,23,42,0.3)] hover:bg-slate-800 hover:-translate-y-1 transition-all duration-500 flex items-center justify-center gap-3 active:scale-[0.97]"
               >
-                <span>Submit Booking Request</span>
-                <Plane className="w-5 h-5 rotate-45 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
+                <span>SEND FLIGHT BRIEF</span>
+                <Plane size={18} className="rotate-45" />
               </button>
-            </div>
+            </footer>
           </form>
         </div>
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default BookingForm;

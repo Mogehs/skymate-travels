@@ -1,284 +1,184 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Star,
-  Clock,
-  MapPin,
-  CheckCircle,
-} from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Star, MapPin, ChevronRight, Check } from "lucide-react";
 import { fetchUmrahPackages } from "../../services/packageService";
 import Loader from "../common/Loader";
 
-const fallbackUmrahPackages = [
-  {
-    title: "Economy Umrah Package",
-    price: "Rs 150,000",
-    duration: "15 Days",
-    rating: 4.8,
-    location: "Makkah & Madinah",
-    imageUrl:
-      "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=400&h=400&fit=crop&crop=center",
-    description:
-      "Complete Umrah journey with economy accommodation and transportation.",
-    features: [
-      "Visa Processing",
-      "Hotel Accommodation",
-      "Transportation",
-      "Ziyarat Tours",
-    ],
-  },
-  {
-    title: "Premium Umrah Package",
-    price: "Rs 250,000",
-    duration: "20 Days",
-    rating: 4.9,
-    location: "Makkah & Madinah",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519748174340-95c2c2c0e0e5?w=400&h=400&fit=crop&crop=center",
-    description: "Luxury Umrah experience with 5-star hotels and VIP services.",
-    features: [
-      "VIP Visa Processing",
-      "5-Star Hotels",
-      "Luxury Transportation",
-      "Expert Guides",
-    ],
-  },
-  {
-    title: "Family Umrah Package",
-    price: "Rs 350,000",
-    duration: "25 Days",
-    rating: 4.9,
-    location: "Makkah & Madinah",
-    imageUrl:
-      "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=400&h=400&fit=crop&crop=center",
-    description:
-      "Special family package with child-friendly accommodations and activities.",
-    features: [
-      "Family Visa Processing",
-      "Family Suites",
-      "Child Care Services",
-      "Educational Tours",
-    ],
-  },
-  {
-    title: "Deluxe Umrah Package",
-    price: "Rs 300,000",
-    duration: "18 Days",
-    rating: 4.9,
-    location: "Makkah & Madinah",
-    imageUrl:
-      "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400&h=400&fit=crop&crop=center",
-    description:
-      "Premium accommodation with special amenities and personalized services.",
-    features: [
-      "Express Visa Processing",
-      "Deluxe Hotels",
-      "Private Transportation",
-      "Guided Tours",
-    ],
-  },
-  {
-    title: "Group Umrah Package",
-    price: "Rs 180,000",
-    duration: "16 Days",
-    rating: 4.7,
-    location: "Makkah & Madinah",
-    imageUrl:
-      "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=400&h=400&fit=crop&crop=center",
-    description:
-      "Affordable group package with shared accommodation and group activities.",
-    features: [
-      "Group Visa Processing",
-      "Shared Accommodation",
-      "Group Transportation",
-      "Community Activities",
-    ],
-  },
-];
+
 
 export default function Umrah({ openGlobalModal }) {
-  const swiperRef = useRef(null);
-  const [packages, setPackages] = useState(fallbackUmrahPackages);
+  const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Set a timeout to stop loading after 2 seconds regardless
-    const loadingTimeout = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
     (async () => {
       try {
-        const data = await fetchUmrahPackages();
-        if (data.length > 0) {
-          const enrichedData =
-            data.length >= 5
-              ? data
-              : [...data, ...fallbackUmrahPackages].slice(0, 5);
-          setPackages(enrichedData);
+        setLoading(true);
+        const data = await fetchUmrahPackages('safar-air');
+        if (data && data.length > 0) {
+          setPackages(data.slice(0, 3));
+        } else {
+          setPackages([]);
         }
-      } catch (error) {
-        console.error("Error fetching Umrah packages:", error);
-        // Keep fallback data
+      } catch (err) {
+        console.error("Error loading Umrah packages:", err);
+        setError("Unable to load the latest packages.");
+        setPackages([]);
       } finally {
-        clearTimeout(loadingTimeout);
         setLoading(false);
       }
     })();
-
-    return () => clearTimeout(loadingTimeout);
   }, []);
 
-  return (
-    <section
-      id="umrah"
-      className="py-20 px-6 lg:px-20 bg-gradient-to-br from-white via-blue-50/30 to-white font-inter"
-    >
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-amber-100 rounded-full mb-4">
-          <Star className="text-[#F59E0B] w-4 h-4 fill-current" />
-          <span className="text-sm text-[#1E40AF] font-semibold tracking-wide uppercase">
-            Featured Packages
-          </span>
+  const CardItem = ({ pkg }) => (
+    <div className="group bg-white w-full sm:w-1/2 lg:w-1/3 flex flex-col hover:bg-slate-50 transition-colors duration-300 border border-slate-100 overflow-hidden">
+      {/* Image - Sharper, wider aspect */}
+      <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
+        <img
+          src={pkg.imageUrl}
+          alt={pkg.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#1E40AF] rounded shadow-sm border border-slate-100">
+          {pkg.duration}
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold text-[#1E3A8A] mb-4 font-playfair">
-          Umrah{" "}
-          <span className="bg-gradient-to-r from-[#1E40AF] to-[#F59E0B] bg-clip-text text-transparent">
-            Packages
-          </span>
-        </h2>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-          Embark on a spiritual journey with our carefully curated Umrah
-          packages
-        </p>
       </div>
 
-      {loading ? (
-        <Loader message="Loading Umrah Packages..." />
-      ) : (
-        <div className="relative max-w-7xl mx-auto">
-          <Swiper
-            modules={[Autoplay]}
-            navigation={false}
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper;
-            }}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
-            loop={packages.length > 1}
-            loopAdditionalSlides={2}
-            slidesPerView={1}
-            spaceBetween={24}
-            breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 20 },
-              768: { slidesPerView: 2, spaceBetween: 24 },
-              1024: { slidesPerView: 3, spaceBetween: 30 },
-              1280: { slidesPerView: 3, spaceBetween: 32 },
-            }}
-          >
-            {packages.map((pkg, index) => (
-              <SwiperSlide key={index} className="!pb-4 !pt-4">
-                <div className="group bg-white rounded-3xl overflow-hidden shadow-2xl hover:shadow-[0_20px_60px_rgba(30,64,175,0.3)] border-2 border-blue-100 hover:border-[#F59E0B] transition-all duration-500 h-full flex flex-col hover:-translate-y-2">
-                  {/* Image Section - Fixed professional height */}
-                  <div className="relative h-72 overflow-hidden">
-                    <img
-                      src={pkg.imageUrl}
-                      alt={pkg.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      {/* Content */}
+      <div className="p-6 lg:p-8 flex flex-col flex-1 gap-4 font-dm">
+        <div className="flex justify-between items-start">
+          <h3 className="text-xl font-sansita font-bold text-slate-900 leading-tight group-hover:text-[#1E40AF] transition-colors">
+            {pkg.title}
+          </h3>
+          <div className="flex items-center gap-1.5 text-slate-400 text-xs font-bold">
+            <Star size={14} className="fill-[#F59E0B] text-[#F59E0B]" />
+            <span className="text-slate-900">{pkg.rating}</span>
+          </div>
+        </div>
 
-                    {/* Price Badge - More prominent */}
-                    <div className="absolute top-5 right-5 bg-gradient-to-r from-[#F59E0B] to-[#FBBF24] text-white px-5 py-2.5 rounded-2xl font-bold shadow-2xl text-lg backdrop-blur-sm border-2 border-white/20">
-                      {pkg.price}
-                    </div>
+        <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+          <MapPin size={14} className="text-[#F59E0B]" />
+          {pkg.location}
+        </div>
 
-                    {/* Rating Badge - Better positioned */}
-                    <div className="absolute top-5 left-5 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-xl shadow-lg">
-                      <Star className="w-5 h-5 fill-current text-[#F59E0B]" />
-                      <span className="font-bold text-gray-800">
-                        {pkg.rating}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content Section - Well-structured */}
-                  <div className="p-6 flex-grow flex flex-col bg-gradient-to-b from-white to-blue-50/30">
-                    <h3 className="text-xl font-bold text-[#1E3A8A] mb-4 font-playfair group-hover:text-[#1E40AF] transition-colors leading-tight">
-                      {pkg.title}
-                    </h3>
-
-                    {/* Info badges */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="flex items-center gap-2 bg-blue-100 px-3 py-1.5 rounded-lg">
-                        <Clock className="w-4 h-4 text-[#1E40AF]" />
-                        <span className="text-sm font-semibold text-[#1E40AF]">
-                          {pkg.duration}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-lg">
-                        <MapPin className="w-4 h-4 text-[#F59E0B]" />
-                        <span className="text-sm font-semibold text-[#F59E0B]">
-                          {pkg.location}
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-700 text-sm mb-4 line-clamp-2 leading-relaxed">
-                      {pkg.description}
-                    </p>
-
-                    {/* Features list */}
-                    <div className="space-y-2.5 mb-6">
-                      {(Array.isArray(pkg.features)
-                        ? pkg.features
-                        : typeof pkg.features === "string"
-                          ? pkg.features.split(",").map((f) => f.trim())
-                          : []
-                      )
-                        .slice(0, 3)
-                        .map((feature, i) => (
-                          <div
-                            key={i}
-                            className="flex items-center gap-2.5 text-sm text-gray-700"
-                          >
-                            <CheckCircle className="w-4 h-4 text-[#F59E0B] flex-shrink-0" />
-                            <span className="font-medium">{feature}</span>
-                          </div>
-                        ))}
-                    </div>
-
-                    {/* CTA Button - More prominent */}
-                    <button
-                      onClick={() => openGlobalModal(pkg.title)}
-                      className="mt-auto w-full bg-gradient-to-r from-[#1E40AF] via-[#3B82F6] to-[#1E40AF] bg-size-200 bg-pos-0 hover:bg-pos-100 text-white py-3.5 rounded-xl font-bold hover:shadow-2xl transition-all duration-500 shadow-lg text-base"
-                    >
-                      Book Now
-                    </button>
-                  </div>
-                </div>
-              </SwiperSlide>
+        <div className="space-y-2 mt-2 mb-6">
+          {(Array.isArray(pkg.features)
+            ? pkg.features
+            : pkg.features?.split(",").map((f) => f.trim()) || []
+          )
+            .slice(0, 3)
+            .map((feature, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-2.5 text-slate-600 text-[0.8rem] font-light"
+              >
+                <div className="w-1 h-1 bg-[#1E40AF]/40 rounded-full"></div>
+                {feature}
+              </div>
             ))}
-          </Swiper>
+        </div>
 
-          {/* Navigation Buttons */}
+        <div className="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">
+              Pricing from
+            </p>
+            <p className="text-xl font-bold text-slate-900 font-sansita tracking-tight">
+              {pkg.price}
+            </p>
+          </div>
           <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-xl hover:bg-gradient-to-r hover:from-[#1E40AF] hover:to-[#3B82F6] hover:text-white transition-all duration-300 border-2 border-blue-200"
+            onClick={() => openGlobalModal(pkg.title)}
+            className="px-6 py-2.5 bg-slate-900 text-white text-xs font-bold tracking-widest uppercase hover:bg-[#1E40AF] transition-all duration-300 rounded-full shadow-lg shadow-slate-200"
           >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button
-            onClick={() => swiperRef.current?.slideNext()}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-xl hover:bg-gradient-to-r hover:from-[#1E40AF] hover:to-[#3B82F6] hover:text-white transition-all duration-300 border-2 border-blue-200"
-          >
-            <ChevronRight className="w-6 h-6" />
+            Details
           </button>
         </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      <section
+        className="py-12 md:py-16 bg-white font-dm overflow-hidden"
+        id="umrah"
+      >
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-left mb-12">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-6 text-[#F59E0B]">
+              <Star className="w-3.5 h-3.5" />
+              <span className="text-[0.65rem] font-bold tracking-[0.25em] uppercase">
+                Spiritual Legacy
+              </span>
+            </div>
+
+            <h2 className="text-4xl lg:text-5xl font-sansita font-bold text-slate-900 leading-tight mb-6">
+              Sacred Journey to <br className="hidden md:block" />
+              <span className="text-[#1E40AF]">Makkah & Madinah</span>
+            </h2>
+
+            <p className="text-slate-500 text-base lg:text-lg font-light leading-relaxed max-w-2xl">
+              Experience the spiritual journey of a lifetime with our
+              meticulously crafted Umrah experiences designed for utter peace.
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="py-20 flex justify-center">
+              <Loader message="Fetching Sacred Packages..." />
+            </div>
+          ) : (
+            <>
+              {error && (
+                <div className="mb-8 p-4 bg-slate-50 text-slate-500 text-xs tracking-widest uppercase text-center border border-slate-100 rounded-xl">
+                  {error} Showing verified spiritual pathways.
+                </div>
+              )}
+
+              {/* Grid Layout */}
+              {packages.length > 0 ? (
+                <div className="flex flex-wrap border-l border-t border-slate-100">
+                  {packages.map((pkg, index) => (
+                    <CardItem key={index} pkg={pkg} />
+                  ))}
+                </div>
+              ) : null}
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Bespoke Experience Banner */}
+      {packages.length > 0 && (
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-8 font-dm">
+          <div className="w-full bg-slate-50 rounded-[32px] border border-slate-100 p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10 relative overflow-hidden group">
+            {/* Ambient Glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#F59E0B]/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2 group-hover:bg-[#F59E0B]/10 transition-colors duration-700"></div>
+
+            <div className="text-left relative z-10 max-w-2xl">
+              <h3 className="text-3xl lg:text-4xl font-sansita font-bold text-slate-900 mb-4 leading-tight">
+                Looking for a <span className="text-[#1E40AF]">Bespoke</span>{" "}
+                <br className="hidden sm:block" />
+                Spiritual Experience?
+              </h3>
+              <p className="text-slate-500 text-base lg:text-lg leading-relaxed font-light">
+                We specialize in curating personalized spiritual journeys tailored
+                to your family's unique requirements and schedule.
+              </p>
+            </div>
+
+            <button
+              onClick={() => openGlobalModal("Custom Umrah Experience")}
+              className="flex-shrink-0 px-10 py-4 bg-[#1E40AF] text-white rounded-full font-bold shadow-xl shadow-blue-100 hover:shadow-2xl hover:bg-[#1E3A8A] hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 text-sm tracking-widest uppercase"
+            >
+              Curate Yours
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
       )}
-    </section>
+    </>
   );
 }

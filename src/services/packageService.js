@@ -30,21 +30,31 @@ export const fetchAllPackages = async () => {
 };
 
 /**
- * Fetch packages for a specific category
+ * Fetch packages for a specific category and brand
  * @param {string} category - The category name (e.g., 'top-destinations', 'best-deals')
- * @returns {Array} Array of packages for the specified category
+ * @param {string} brand - The brand name (e.g., 'skymate', 'skyroo', 'safar-air')
+ * @returns {Array} Array of packages for the specified category and brand
  */
-export const fetchPackagesByCategory = async (category) => {
+export const fetchPackagesByCategory = async (category, brand = 'skymate') => {
   try {
-    console.log(`🔍 Fetching packages for category: ${category}`);
+    console.log(`🔍 Fetching packages for category: ${category} | brand: ${brand}`);
     const docRef = doc(db, 'packages', category);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const data = docSnap.data();
-      console.log(`✅ Found data for ${category}:`, data);
-      const items = data.items || [];
-      console.log(`📦 ${category} items count:`, items.length);
+      let items = data.items || [];
+
+      // Filter by brand if specified
+      if (brand) {
+        items = items.filter(item => {
+          // Default to 'skymate' if no brand is set on the item
+          const itemBrand = item.brand || 'skymate';
+          return itemBrand === brand;
+        });
+      }
+
+      console.log(`📦 ${category} items count for ${brand}:`, items.length);
       return items;
     } else {
       console.log(`❌ No document found for category: ${category}`);
@@ -52,7 +62,7 @@ export const fetchPackagesByCategory = async (category) => {
     }
   } catch (error) {
     console.error(
-      `🚨 Error fetching packages for category ${category}:`,
+      `🚨 Error fetching packages for category ${category} and brand ${brand}:`,
       error
     );
     throw error;
@@ -63,67 +73,74 @@ export const fetchPackagesByCategory = async (category) => {
  * Fetch top destination packages
  * @returns {Array} Array of top destination packages
  */
-export const fetchTopDestinations = async () => {
-  return await fetchPackagesByCategory('top-destinations');
+export const fetchTopDestinations = async (brand = 'skymate') => {
+  return await fetchPackagesByCategory('top-destinations', brand);
 };
 
 /**
  * Fetch best deals packages
  * @returns {Array} Array of best deals packages
  */
-export const fetchBestDeals = async () => {
-  return await fetchPackagesByCategory('best-deals');
+export const fetchBestDeals = async (brand = 'skymate') => {
+  return await fetchPackagesByCategory('best-deals', brand);
 };
 
 /**
  * Fetch most searched packages
  * @returns {Array} Array of most searched packages
  */
-export const fetchMostSearched = async () => {
-  return await fetchPackagesByCategory('most-searched');
+export const fetchMostSearched = async (brand = 'skymate') => {
+  return await fetchPackagesByCategory('most-searched', brand);
 };
 
 /**
  * Fetch curated packages
  * @returns {Array} Array of curated packages
  */
-export const fetchCuratedPackages = async () => {
-  return await fetchPackagesByCategory('curated');
+export const fetchCuratedPackages = async (brand = 'skymate') => {
+  return await fetchPackagesByCategory('curated', brand);
 };
 
 /**
  * Fetch Umrah packages
  * @returns {Array} Array of Umrah packages
  */
-export const fetchUmrahPackages = async () => {
-  return await fetchPackagesByCategory('umrah');
+export const fetchUmrahPackages = async (brand = 'skymate') => {
+  return await fetchPackagesByCategory('umrah', brand);
 };
 
 // Landing: content collections
-export const fetchTestimonialsContent = async () => {
+export const fetchTestimonialsContent = async (brand = 'skymate') => {
   try {
     const snap = await getDocs(collection(db, 'testimonials'));
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    return snap.docs
+      .map((d) => ({ id: d.id, ...d.data() }))
+      .filter(t => (t.brand || 'skymate') === brand);
   } catch (e) {
     console.error('Error fetching testimonials:', e);
     return [];
   }
 };
 
-export const fetchDestinationHighlightsContent = async () => {
+export const fetchDestinationHighlightsContent = async (brand = 'skymate') => {
   try {
     const snap = await getDocs(collection(db, 'destination-highlights'));
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    console.log(snap)
+    return snap.docs
+      .map((d) => ({ id: d.id, ...d.data() }))
+      .filter(d => (d.brand || 'skymate') === brand);
   } catch (e) {
     console.error('Error fetching destination highlights:', e);
     return [];
   }
 };
 
-export const fetchDestinationsMonthContent = async () => {
+export const fetchDestinationsMonthContent = async (brand = 'skymate') => {
   try {
     const snap = await getDocs(collection(db, 'destinations-month'));
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    return snap.docs
+      .map((d) => ({ id: d.id, ...d.data() }))
+      .filter(d => (d.brand || 'skymate') === brand);
   } catch (e) {
     console.error('Error fetching destinations of month:', e);
     return [];
@@ -221,9 +238,9 @@ export const logAllPackagesData = async () => {
     console.log(
       '   Total packages across all categories:',
       topDestinations.length +
-        bestDeals.length +
-        mostSearched.length +
-        curatedPackages.length
+      bestDeals.length +
+      mostSearched.length +
+      curatedPackages.length
     );
 
     console.log('🏁 ================ END OF DATA ================\n');

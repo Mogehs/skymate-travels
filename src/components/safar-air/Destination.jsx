@@ -128,7 +128,7 @@ const DestinationHighlights = () => {
 
     (async () => {
       try {
-        const data = await fetchDestinationHighlightsContent();
+        const data = await fetchDestinationHighlightsContent('safar-air');
         if (data.length > 0) setHighlights(data);
       } catch (error) {
         console.error("Error fetching destination highlights:", error);

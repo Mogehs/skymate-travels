@@ -1,50 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { fetchBestDeals } from '../../services/packageService';
-import { japan, italy, usa, europe } from '../../assets/safar-air/index.js';
-import { MapPin, Clock, ArrowRight } from 'lucide-react';
-import Loader from '../common/Loader';
+import React, { useState, useEffect } from "react";
+import { fetchBestDeals } from "../../services/packageService";
+import { japan, italy, usa, europe } from "../../assets/safar-air/index.js";
+import { Clock, ArrowRight, Tag } from "lucide-react";
+import Loader from "../common/Loader";
 
-const fallbackDeals = [
-  {
-    title: 'Kyoto, Japan',
-    days: '10 Days Trip',
-    price: '$5.42k',
-    imageUrl: japan,
-  },
-  {
-    title: 'Rome, Italy',
-    days: '12 Days Trip',
-    price: '$4.2k',
-    imageUrl: italy,
-  },
-  {
-    title: 'New York City, USA',
-    days: '28 Days Trip',
-    price: '$15k',
-    imageUrl: usa,
-  },
-  {
-    title: 'Full Europe',
-    days: '28 Days Trip',
-    price: '$15k',
-    imageUrl: europe,
-  },
-];
+
 
 export default function BestDeals() {
-  const [deals, setDeals] = useState(fallbackDeals);
+  const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set a timeout to stop loading after 2 seconds regardless
     const loadingTimeout = setTimeout(() => {
       setLoading(false);
     }, 2000);
 
     const loadDeals = async () => {
       try {
-        const data = await fetchBestDeals();
-
+        const data = await fetchBestDeals('safar-air');
         if (data && data.length > 0) {
           const mappedData = data.map((deal) => ({
             title: deal.title || deal.name,
@@ -55,8 +28,7 @@ export default function BestDeals() {
           setDeals(mappedData);
         }
       } catch (err) {
-        console.error('Error loading best deals:', err);
-        // Keep fallback data
+        console.error("Error loading best deals:", err);
       } finally {
         clearTimeout(loadingTimeout);
         setLoading(false);
@@ -67,85 +39,103 @@ export default function BestDeals() {
     return () => clearTimeout(loadingTimeout);
   }, []);
 
-  return (
-    <section className='py-20 px-6 lg:px-20 bg-gradient-to-br from-blue-50/30 via-white to-amber-50/20 font-inter'>
-      <div className='text-center mb-12'>
-        <div className='inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-amber-100 rounded-full mb-4'>
-          <span className='text-sm text-[#1E40AF] font-semibold tracking-wide uppercase'>
-            Special Offers
+  const DealCard = ({ deal }) => (
+    <div className="group bg-white flex flex-col border border-slate-100 hover:bg-slate-50 transition-all duration-300">
+      {/* Image Container - Sharp and focused */}
+      <div className="relative aspect-[4/5] overflow-hidden bg-slate-100">
+        <img
+          src={deal.imageUrl}
+          alt={deal.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+
+        {/* Price Badge - Minimalist but clear */}
+        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded shadow-sm border border-slate-100">
+          <span className="text-sm font-bold text-slate-900 tracking-tight font-sansita">
+            {deal.price}
           </span>
         </div>
-        <h2 className='text-4xl md:text-5xl font-bold text-[#1E3A8A] mb-4 font-playfair'>
-          Best{' '}
-          <span className='bg-gradient-to-r from-[#1E40AF] to-[#F59E0B] bg-clip-text text-transparent'>
-            Deals
-          </span>
-        </h2>
-        <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-          Exclusive offers on premium travel packages
-        </p>
+
+        {/* Status Badge */}
+        <div className="absolute top-4 left-4 bg-[#1E40AF] text-white px-2 py-1 rounded shadow-sm">
+          <div className="flex items-center gap-1.5">
+            <Tag size={10} className="fill-current" />
+            <span className="text-[0.6rem] font-bold uppercase tracking-[0.1em]">
+              Best Deal
+            </span>
+          </div>
+        </div>
       </div>
 
-      {loading ? (
-        <Loader message='Loading Best Deals...' />
-      ) : (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto'>
-          {deals.map((deal, index) => (
-            <div
-              key={index}
-              className='group relative overflow-hidden rounded-3xl shadow-2xl hover:shadow-[0_25px_70px_rgba(30,64,175,0.4)] transition-all duration-500 hover:-translate-y-3 cursor-pointer border-2 border-blue-100 hover:border-[#F59E0B]'
-            >
-              {/* Full height professional image */}
-              <div className='relative h-[450px]'>
-                <img
-                  src={deal.imageUrl}
-                  alt={deal.title}
-                  className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 min-h-[450px]'
-                />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10'></div>
-
-                {/* Premium Price Badge */}
-                <div className='absolute top-5 right-5 bg-gradient-to-r from-[#F59E0B] via-[#FBBF24] to-[#F59E0B] bg-size-200 text-white px-5 py-3 rounded-2xl font-bold shadow-2xl text-xl border-2 border-white/30 backdrop-blur-sm'>
-                  {deal.price}
-                </div>
-
-                {/* Best Deal Badge */}
-                <div className='absolute top-5 left-5 bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] text-white px-4 py-2 rounded-xl font-semibold shadow-xl text-sm backdrop-blur-sm border border-white/20'>
-                  💎 Best Deal
-                </div>
-
-                {/* Content Section */}
-                <div className='absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent'>
-                  {/* Duration Badge */}
-                  <div className='inline-flex items-center gap-2 bg-white/15 backdrop-blur-md text-white px-4 py-2 rounded-xl mb-4 border border-white/20'>
-                    <Clock className='w-4 h-4' />
-                    <span className='font-semibold'>{deal.days}</span>
-                  </div>
-
-                  <h3 className='text-2xl font-bold text-white mb-4 font-playfair group-hover:text-[#F59E0B] transition-colors drop-shadow-lg leading-tight'>
-                    {deal.title}
-                  </h3>
-
-                  <div className='flex items-center justify-between pt-3 border-t border-white/20'>
-                    <div className='flex items-center gap-2 text-white/90 text-sm'>
-                      <MapPin className='w-5 h-5 text-[#F59E0B]' />
-                      <span className='font-semibold'>Explore Destination</span>
-                    </div>
-
-                    <div className='flex items-center gap-2 text-white group-hover:gap-3 transition-all bg-gradient-to-r from-[#F59E0B]/20 to-transparent px-3 py-2 rounded-lg'>
-                      <span className='text-sm font-bold'>View</span>
-                      <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Animated border on hover */}
-              <div className='absolute inset-0 border-4 border-transparent group-hover:border-[#F59E0B] rounded-3xl transition-all duration-500 pointer-events-none opacity-0 group-hover:opacity-100'></div>
-            </div>
-          ))}
+      {/* Info Section */}
+      <div className="p-6 flex flex-col flex-1 font-dm">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <Clock size={14} />
+            <span className="text-[0.7rem] font-light uppercase tracking-widest">
+              {deal.days}
+            </span>
+          </div>
         </div>
-      )}
+
+        <h3 className="text-xl font-sansita font-bold text-slate-900 mb-6 leading-tight group-hover:text-[#1E40AF] transition-colors">
+          {deal.title}
+        </h3>
+
+        <div className="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+          <div className="flex flex-col">
+            <span className="text-[0.6rem] text-slate-400 uppercase tracking-[0.15em] font-bold mb-1">
+              Explore
+            </span>
+            <span className="text-xs font-semibold text-slate-900">
+              Destination
+            </span>
+          </div>
+
+          <button className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white transition-all duration-300 group-hover:bg-[#1E40AF] group-hover:translate-x-1 shadow-lg shadow-slate-200">
+            <ArrowRight size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <section className="w-full bg-white py-10 lg:py-14 font-dm overflow-hidden border-b border-slate-50">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-8">
+        {/* Header - Minimalist */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+          <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-6 text-[#1E40AF]">
+              <Tag className="w-3.5 h-3.5" />
+              <span className="text-[0.65rem] font-bold tracking-[0.25em] uppercase">
+                Exclusive Offers
+              </span>
+            </div>
+
+            <h2 className="text-4xl lg:text-5xl font-sansita font-bold text-slate-900 leading-tight">
+              Exceptional <span className="text-[#F59E0B]">Curated Deals</span>
+            </h2>
+          </div>
+
+          <p className="text-slate-500 text-sm lg:text-base font-light leading-relaxed max-w-sm">
+            Hand-picked opportunities where timing and luxury pricing align
+            perfectly for the season.
+          </p>
+        </div>
+
+        {loading ? (
+          <div className="py-20 flex justify-center">
+            <Loader message="Checking Best Offers..." />
+          </div>
+        ) : deals.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 ">
+            {deals.map((deal, index) => (
+              <DealCard key={index} deal={deal} />
+            ))}
+          </div>
+        ) : null}
+      </div>
     </section>
   );
 }

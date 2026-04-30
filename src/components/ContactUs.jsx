@@ -90,13 +90,9 @@ const ContactUs = () => {
 
         {/* Form Section */}
         <div className="w-full lg:w-1/2">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">
-            Have a Question?{" "}
-            <span className="text-[#EB662B]">Let’s Talk Travel</span>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">
+            Send us a <span className="text-[#EB662B]">Message</span>
           </h2>
-          <p className="text-gray-600 mb-6">
-            A warm and inviting title that fits perfectly with travel services.
-          </p>{" "}
           <form className="space-y-4" onSubmit={sendEmail}>
             {/* FormSubmit honeypot field to prevent spam */}
             <input type="text" name="_honey" style={{ display: "none" }} />
