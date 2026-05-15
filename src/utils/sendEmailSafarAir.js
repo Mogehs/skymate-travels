@@ -12,7 +12,7 @@ export const sendEmail = (e) => {
 
   // FormSubmit endpoint with AJAX to bypass captcha page
   // Replace with your email address
-  const formAction = "https://formsubmit.co/ajax/skyroointernational@gmail.com";
+  const formAction = "https://formsubmit.co/ajax/flysmartmux@gmail.com";
 
   fetch(formAction, {
     method: "POST",
@@ -65,7 +65,7 @@ export const sendBookingEmail = (e) => {
 
   // FormSubmit endpoint with AJAX to bypass captcha page
   // Replace with your email address
-  const formAction = "https://formsubmit.co/ajax/skyroointernational@gmail.com";
+  const formAction = "https://formsubmit.co/ajax/flysmartmux@gmail.com";
 
   // Add a hidden field for email subject
   formData.append("_subject", "New Booking Request - Safar Air International");

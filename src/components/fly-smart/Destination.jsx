@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Loader, ChevronLeft, ChevronRight } from 'lucide-react';
-import { highlight, video1, video2, oneVid, twoVid } from '../../assets/skyroo/index.js';
+import { highlight, video1, video2, oneVid, twoVid } from '../../assets/fly-smart/index.js';
 import { fetchDestinationHighlightsContent } from '../../services/packageService';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -135,14 +135,14 @@ const DestinationHighlights = () => {
   return (
     <section className='px-4 md:px-8 lg:px-20 py-12 bg-white font-dm max-w-[1536px] mx-auto'>
       <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center md:text-left'>
-        Destination <span className='text-sky-accent'>Highlights</span>
+        Destination <span className='text-fly-accent'>Highlights</span>
       </h2>
 
       <div className='relative'>
         {/* Nav Buttons (centered vertically on sides) */}
         <div className='absolute top-1/2 -translate-y-1/2 left-[-24px] md:left-[-32px] z-10'>
           <button
-            className='text-neutral-700 hover:text-sky-accent transition-colors p-1'
+            className='text-neutral-700 hover:text-fly-accent transition-colors p-1'
             ref={prevRef}
             aria-label='Previous'
           >
@@ -151,7 +151,7 @@ const DestinationHighlights = () => {
         </div>
         <div className='absolute top-1/2 -translate-y-1/2 right-[-24px] md:right-[-32px] z-10'>
           <button
-            className='text-neutral-700 hover:text-sky-accent transition-colors p-1'
+            className='text-neutral-700 hover:text-fly-accent transition-colors p-1'
             ref={nextRef}
             aria-label='Next'
           >

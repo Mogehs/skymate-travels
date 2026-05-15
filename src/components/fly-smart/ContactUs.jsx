@@ -14,7 +14,7 @@ const ContactUs = () => {
 
     const formData = new FormData(e.target);
 
-    fetch("https://formsubmit.co/ajax/skyroointernational@gmail.com", {
+    fetch("https://formsubmit.co/ajax/flysmartmux@gmail.com", {
       method: "POST",
       body: formData,
       headers: {
@@ -73,7 +73,7 @@ const ContactUs = () => {
         <div className="w-full lg:w-1/2 p-8 lg:p-16 flex flex-col justify-center bg-white">
           <div className="max-w-lg mx-auto w-full">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 font-sansita leading-tight">
-              Let's <span className="text-sky-accent">Talk</span>
+              Let's <span className="text-fly-accent">Talk</span>
             </h2>
 
             <div className="mb-8 text-base text-slate-600">
@@ -84,7 +84,7 @@ const ContactUs = () => {
                 Phone:{" "}
                 <a
                   href="tel:+923006501006"
-                  className="text-sky-accent hover:underline decoration-sky-accent/30 underline-offset-4"
+                  className="text-fly-accent hover:underline decoration-fly-accent/30 underline-offset-4"
                 >
                   +92 300 6501006
                 </a>
@@ -124,14 +124,14 @@ const ContactUs = () => {
                   name="name"
                   placeholder="Name"
                   required
-                  className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-sky-accent transition-colors rounded-none"
+                  className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-fly-accent transition-colors rounded-none"
                 />
                 <input
                   type="email"
                   name="email"
                   placeholder="Email"
                   required
-                  className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-sky-accent transition-colors rounded-none"
+                  className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-fly-accent transition-colors rounded-none"
                 />
               </div>
 
@@ -139,19 +139,19 @@ const ContactUs = () => {
                 type="text"
                 name="phone"
                 placeholder="Phone Number"
-                className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-sky-accent transition-colors rounded-none"
+                className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-fly-accent transition-colors rounded-none"
               />
 
               <textarea
                 name="message"
                 placeholder="Tell us about your plans..."
                 rows={4}
-                className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-sky-accent transition-colors resize-none rounded-none"
+                className="w-full border-b border-slate-300 bg-transparent text-slate-900 placeholder-slate-400 py-3 focus:outline-none focus:border-fly-accent transition-colors resize-none rounded-none"
               ></textarea>
 
               <button
                 type="submit"
-                className="w-full bg-[var(--sky-accent)] hover:bg-sky-600 text-white py-4 font-semibold tracking-wide uppercase transition-all duration-300 rounded-none mt-4"
+                className="w-full bg-[var(--fly-accent)] hover:bg-sky-600 text-white py-4 font-semibold tracking-wide uppercase transition-all duration-300 rounded-none mt-4"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Sending..." : "Send Message"}

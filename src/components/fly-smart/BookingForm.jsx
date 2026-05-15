@@ -75,7 +75,7 @@ const BookingForm = ({
               >
                 Full Name *
               </label>
-              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <input
                   type='text'
                   id='name'
@@ -94,7 +94,7 @@ const BookingForm = ({
               >
                 Email
               </label>
-              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <input
                   type='email'
                   id='email'
@@ -112,7 +112,7 @@ const BookingForm = ({
               >
                 Phone Number *
               </label>
-              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <input
                   type='tel'
                   id='phone'
@@ -131,7 +131,7 @@ const BookingForm = ({
               >
                 Destination *
               </label>
-              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <MapPin size={16} className='text-gray-400' />
                 <input
                   type='text'
@@ -151,7 +151,7 @@ const BookingForm = ({
               >
                 Departure Date *
               </label>
-              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <CalendarDays size={16} className='text-gray-400' />
                 <input
                   type='date'
@@ -170,7 +170,7 @@ const BookingForm = ({
               >
                 Return Date *
               </label>
-              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <CalendarDays size={16} className='text-gray-400' />
                 <input
                   type='date'
@@ -189,7 +189,7 @@ const BookingForm = ({
               >
                 Number of Adults *
               </label>
-              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-center gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <Users size={16} className='text-gray-400' />
                 <input
                   type='number'
@@ -221,7 +221,7 @@ const BookingForm = ({
               >
                 Message *
               </label>
-              <div className='flex items-start gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-sky-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
+              <div className='flex items-start gap-2 border border-gray-300 rounded-md px-4 py-2 focus-within:border-fly-accent focus-within:ring-1 focus-within:ring-[rgba(11,162,224,0.6)]'>
                 <MessageSquare size={16} className='text-gray-400 mt-1' />
                 <textarea
                   id='message'

@@ -15,7 +15,7 @@ import {
   pkg6Jpg,
   pkg7Jpg,
   pkg8Jpg,
-} from "../../assets/skyroo/index.js";
+} from "../../assets/fly-smart/index.js";
 
 
 
@@ -38,7 +38,7 @@ const CuratedPackages = ({ openGlobalModal }) => {
     const loadPackages = async () => {
       try {
         setLoading(true);
-        console.log("🔍 [CURATED] Starting to fetch data for Skyroo...");
+        console.log("🔍 [CURATED] Starting to fetch data for Fly Smart...");
         const data = await fetchCuratedPackages('skyroo');
 
         if (data && data.length > 0) {
@@ -124,7 +124,7 @@ const CuratedPackages = ({ openGlobalModal }) => {
     <section className="py-12 lg:py-20 border-y border-slate-200 bg-white">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
         <div className="text-center mb-12">
-          <p className="text-xs text-sky-accent tracking-[0.2em] uppercase mb-3 font-semibold">
+          <p className="text-xs text-fly-accent tracking-[0.2em] uppercase mb-3 font-semibold">
             Signature collections
           </p>
           <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 font-sansita">

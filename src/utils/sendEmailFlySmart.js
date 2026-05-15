@@ -1,14 +1,14 @@
 import { toast } from 'react-toastify';
 
 const FORM_ENDPOINT =
-  'https://formsubmit.co/ajax/skyroointernational@gmail.com';
+  'https://formsubmit.co/ajax/flysmartmux@gmail.com';
 const WHATSAPP_NUMBER = '923268282115';
 
 const openWhatsApp = (details) => {
   if (typeof window === 'undefined') return;
 
   const message = [
-    `New ${details.context || 'Skyroo International Pvt Ltd'} enquiry`,
+    `New ${details.context || 'Fly Smart International Pvt Ltd'} enquiry`,
     details.name ? `Name: ${details.name}` : null,
     details.email ? `Email: ${details.email}` : null,
     details.phone ? `Phone: ${details.phone}` : null,

@@ -5,7 +5,7 @@ import Footer from "./components/common/Footer";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
-import SkyrooPage from "./pages/SkyrooPage";
+import FlySmartPage from "./pages/FlySmartPage";
 import SafarAirPage from "./pages/SafarAirPage";
 import BookingForm from "./components/BookingForm";
 import {
@@ -111,7 +111,7 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <div
-        className={`max-w-[1536px] mx-auto transition-all duration-1000 ease-out ${
+        className={`max-w-[1440px] mx-auto transition-all duration-1000 ease-out ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
@@ -124,7 +124,7 @@ const App = () => {
           />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/skyroo" element={<SkyrooPage />} />
+          <Route path="/fly-smart" element={<FlySmartPage />} />
           <Route path="/safar-air" element={<SafarAirPage />} />
         </Routes>
 

@@ -6,7 +6,7 @@ import {
   dest4,
   dest5,
   dest6,
-} from "../../assets/skyroo/index.js";
+} from "../../assets/fly-smart/index.js";
 import { MapPin, Calendar, Star } from "lucide-react";
 import { fetchDestinationsMonthContent } from "../../services/packageService";
 
@@ -76,11 +76,11 @@ const Destinations = () => {
     <section className="py-16 px-4 sm:px-6 lg:px-8 font-dm max-w-[1280px] mx-auto">
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 px-6 sm:px-10 py-10">
         <div className="text-center mb-10">
-          <p className="text-[0.7rem] tracking-[0.28em] uppercase text-sky-accent mb-2">
+          <p className="text-[0.7rem] tracking-[0.28em] uppercase text-fly-accent mb-2">
             Seasonal highlights
           </p>
           <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 font-sansita mb-6">
-            Destinations Of <span className="text-sky-accent">The Month</span>
+            Destinations Of <span className="text-fly-accent">The Month</span>
           </h2>
           <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Discover the most captivating destinations and hidden gems around
@@ -97,7 +97,7 @@ const Destinations = () => {
               className={`px-6 py-3 border rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
                 activeTab === city
                   ? "gradient-sky-primary text-slate-900 border-transparent shadow-lg shadow-[#0ba2e022]"
-                  : "text-gray-600 border-gray-200 hover:border-sky-accent hover:text-gray-900 bg-white"
+                  : "text-gray-600 border-gray-200 hover:border-fly-accent hover:text-gray-900 bg-white"
               }`}
             >
               {city}
@@ -114,7 +114,7 @@ const Destinations = () => {
               className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 cursor-pointer ${
                 selectedCategory === category
                   ? "gradient-sky-primary text-slate-900 shadow-md shadow-[#0ba2e022]"
-                  : "bg-gray-100 text-gray-600 border border-gray-200 hover:border-sky-accent hover:text-gray-900"
+                  : "bg-gray-100 text-gray-600 border border-gray-200 hover:border-fly-accent hover:text-gray-900"
               }`}
             >
               {category}

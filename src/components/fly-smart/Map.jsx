@@ -1,5 +1,5 @@
 import React from 'react';
-import { map } from '../../assets/skyroo/index.js';
+import { map } from '../../assets/fly-smart/index.js';
 
 const Map = () => {
   return (

@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { CircleArrowLeft, CircleArrowRight } from 'lucide-react';
 import { fetchMostSearched } from '../../services/packageService';
-import { manila, dubai, france, himalya } from '../../assets/skyroo/index.js';
+import { manila, dubai, france, himalya } from '../../assets/fly-smart/index.js';
 
 export default function MostSearched({ openGlobalModal }) {
   const prevRef = useRef(null);
@@ -18,7 +18,7 @@ export default function MostSearched({ openGlobalModal }) {
     const loadCities = async () => {
       try {
         setLoading(true);
-        console.log('🔍 [MOST SEARCHED] Starting to fetch data for Skyroo...');
+        console.log('🔍 [MOST SEARCHED] Starting to fetch data for Fly Smart...');
         const data = await fetchMostSearched('skyroo');
 
         console.log('📊 [MOST SEARCHED] Raw Firebase data:', data);
@@ -63,8 +63,8 @@ export default function MostSearched({ openGlobalModal }) {
         <div className='flex justify-between items-center mb-6'>
           <h2 className='text-2xl font-semibold text-gray-800'>
             The Most Searched For{' '}
-            <span className='text-sky-accent'>
-              Cities Skyroo International Pvt Ltd
+            <span className='text-fly-accent'>
+              Cities Fly Smart International Pvt Ltd
             </span>
           </h2>
           <div className='flex space-x-3'>
@@ -110,20 +110,20 @@ export default function MostSearched({ openGlobalModal }) {
       <div className='flex justify-between items-center mb-6'>
         <h2 className='text-2xl font-semibold text-gray-800'>
           The Most Searched For{' '}
-          <span className='text-sky-accent'>
-            Cities Skyroo International Pvt Ltd
+          <span className='text-fly-accent'>
+            Cities Fly Smart International Pvt Ltd
           </span>
         </h2>
         <div className='flex space-x-3'>
           <div
             ref={prevRef}
-            className='cursor-pointer text-gray-700 hover:text-sky-accent transition'
+            className='cursor-pointer text-gray-700 hover:text-fly-accent transition'
           >
             <CircleArrowLeft />
           </div>
           <div
             ref={nextRef}
-            className='cursor-pointer text-gray-700 hover:text-sky-accent transition'
+            className='cursor-pointer text-gray-700 hover:text-fly-accent transition'
           >
             <CircleArrowRight />
           </div>

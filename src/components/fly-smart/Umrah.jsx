@@ -84,7 +84,7 @@ export default function Umrah({ openGlobalModal }) {
       {/* Content */}
       <div className="p-5 flex flex-col flex-1 gap-2">
         <div className="flex justify-between items-start">
-          <h3 className="text-lg font-sansita font-bold text-slate-900 leading-tight group-hover:text-sky-accent transition-colors">
+          <h3 className="text-lg font-sansita font-bold text-slate-900 leading-tight group-hover:text-fly-accent transition-colors">
             {pkg.title}
           </h3>
           <div className="flex items-center gap-1 text-slate-400 text-xs">
@@ -109,7 +109,7 @@ export default function Umrah({ openGlobalModal }) {
                 key={idx}
                 className="flex items-center gap-2 text-slate-600 text-xs"
               >
-                <div className="w-1 h-1 bg-sky-accent rounded-full"></div>
+                <div className="w-1 h-1 bg-fly-accent rounded-full"></div>
                 {feature}
               </div>
             ))}
@@ -151,12 +151,12 @@ export default function Umrah({ openGlobalModal }) {
     <section className="py-12 md:py-16 bg-white font-dm" id="umrah">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <p className="text-xs text-sky-accent tracking-[0.2em] uppercase mb-3 font-semibold">
+          <p className="text-xs text-fly-accent tracking-[0.2em] uppercase mb-3 font-semibold">
             Spiritual Journeys
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 font-sansita mb-4">
             Sacred Journey to{" "}
-            <span className="text-sky-accent">Makkah & Madinah</span>
+            <span className="text-fly-accent">Makkah & Madinah</span>
           </h2>
           <p className="text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-light">
             Experience the spiritual journey of a lifetime with our

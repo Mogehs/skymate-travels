@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BookingForm from './BookingForm';
 import { fetchTopDestinations } from '../../services/packageService';
-import { vector, location } from '../../assets/skyroo/index.js';
+import { vector, location } from '../../assets/fly-smart/index.js';
 
 const renderPackageCard = (pkg, index, openBookingForm) => (
   <div
@@ -113,7 +113,7 @@ export default function TopPackages() {
         className='px-6 lg:px-20 py-10 bg-white font-dm'
       >
         <h2 className='text-2xl sm:text-3xl font-semibold mb-10 text-gray-800'>
-          Top Package <span className='text-sky-accent'>Destinations</span>
+          Top Package <span className='text-fly-accent'>Destinations</span>
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6'>
           {[...Array(8)].map((_, index) => (
@@ -135,7 +135,7 @@ export default function TopPackages() {
     return (
       <section id='top-package' className='px-6 lg:px-20 py-10 bg-white font-dm'>
         <h2 className='text-2xl sm:text-3xl font-semibold mb-10 text-gray-800'>
-          Top Package <span className='text-sky-accent'>Destinations</span>
+          Top Package <span className='text-fly-accent'>Destinations</span>
         </h2>
         <div className='text-center text-gray-500'>
           No top destination packages are available at the moment.
@@ -147,7 +147,7 @@ export default function TopPackages() {
   return (
     <section id='top-package' className='px-6 lg:px-20 py-10 bg-white font-dm'>
       <h2 className='text-2xl sm:text-3xl font-semibold mb-10 text-gray-800'>
-        Top Package <span className='text-sky-accent'>Destinations</span>
+        Top Package <span className='text-fly-accent'>Destinations</span>
       </h2>
 
       {error && (

@@ -171,7 +171,7 @@ export default function Umrah({ openGlobalModal, brand = 'skymate' }) {
 
   return (
     <section className="py-20 bg-white font-dm px-4 md:px-8 lg:px-20 overflow-hidden" id="umrah">
-      <div className="max-w-[1536px] mx-auto">
+      <div className="max-w-[1440px] mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
@@ -225,7 +225,7 @@ export default function Umrah({ openGlobalModal, brand = 'skymate' }) {
       </div>
 
       {/* Dedicated Custom Package Banner - Outside Main Grid Section */}
-      <div className="max-w-[1536px] mx-auto mt-16 font-dm">
+      <div className="max-w-[1440px] mx-auto mt-16 font-dm">
         <div className="w-full bg-white shadow-sm border border-slate-200 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group">
           <div className={`absolute top-0 right-0 w-64 h-64 ${theme.cardBadge.split(' ')[0]} blur-3xl -z-10 translate-x-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-all duration-500`}></div>
 

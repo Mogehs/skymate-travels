@@ -22,7 +22,7 @@ import himalya from "./images/himalya.png";
 import italy from "./images/italy.png";
 import japan from "./images/japan.png";
 import location from "./images/location.png";
-import logo from "./images/logo.png";
+
 import manila from "./images/Manila.png";
 import map from "./images/map.png";
 import parachute from "./images/parachute.png";
@@ -88,7 +88,7 @@ export {
   italy,
   japan,
   location,
-  logo,
+
   manila,
   map,
   parachute,

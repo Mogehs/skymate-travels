@@ -12,13 +12,13 @@ const AboutUs = () => {
           {/* Left Column: Headline */}
           <div className="lg:col-span-7 flex flex-col  gap-2">
             <div className="flex items-center gap-3">
-              <p className="text-xs text-sky-accent tracking-[0.25em] uppercase font-bold">
-                About Skyroo
+              <p className="text-xs text-fly-accent tracking-[0.25em] uppercase font-bold">
+                About Fly Smart
               </p>
             </div>
             <h2 className="text-4xl sm:text-5xl lg:text-[4rem] font-bold text-slate-900 font-sansita leading-[1.1] tracking-tight">
               A single desk for <br className="hidden lg:block" />
-              <span className="text-sky-accent">flights, visas,</span> and{" "}
+              <span className="text-fly-accent">flights, visas,</span> and{" "}
               <br className="hidden lg:block" />
               follow‑through.
             </h2>

@@ -54,11 +54,11 @@ export default function BestDeals() {
         <div className='bg-white rounded-3xl shadow-sm border border-gray-100 px-6 sm:px-10 py-10'>
           <div className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8'>
             <div>
-              <p className='text-[0.7rem] tracking-[0.28em] uppercase text-sky-accent mb-2'>
+              <p className='text-[0.7rem] tracking-[0.28em] uppercase text-fly-accent mb-2'>
                 Best‑value escapes
               </p>
               <h2 className='text-2xl sm:text-3xl font-semibold text-gray-900'>
-                Best Deal <span className='text-sky-accent'>Destinations</span>
+                Best Deal <span className='text-fly-accent'>Destinations</span>
               </h2>
             </div>
             <p className='text-xs sm:text-sm text-gray-500 max-w-xs'>
@@ -103,11 +103,11 @@ export default function BestDeals() {
       <div className='bg-white rounded-3xl shadow-sm border border-gray-100 px-6 sm:px-10 py-10'>
         <div className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8'>
           <div>
-            <p className='text-[0.7rem] tracking-[0.28em] uppercase text-sky-accent mb-2'>
+            <p className='text-[0.7rem] tracking-[0.28em] uppercase text-fly-accent mb-2'>
               Best‑value escapes
             </p>
             <h2 className='text-2xl sm:text-3xl font-semibold text-gray-900'>
-              Best Deal <span className='text-sky-accent'>Destinations</span>
+              Best Deal <span className='text-fly-accent'>Destinations</span>
             </h2>
           </div>
           <p className='text-xs sm:text-sm text-gray-500 max-w-xs'>
@@ -127,7 +127,7 @@ export default function BestDeals() {
           {deals.map((deal, idx) => (
             <article
               key={idx}
-              className='group bg-slate-50 rounded-2xl overflow-hidden border border-gray-200/80 hover:border-sky-accent/50 hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col'
+              className='group bg-slate-50 rounded-2xl overflow-hidden border border-gray-200/80 hover:border-fly-accent/50 hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col'
             >
               <div className='relative aspect-square overflow-hidden'>
                 <img
@@ -147,7 +147,7 @@ export default function BestDeals() {
                   <span className='uppercase tracking-[0.18em] text-slate-400'>
                     From
                   </span>
-                  <span className='text-base font-semibold text-sky-accent'>
+                  <span className='text-base font-semibold text-fly-accent'>
                     {deal.price}
                   </span>
                 </div>

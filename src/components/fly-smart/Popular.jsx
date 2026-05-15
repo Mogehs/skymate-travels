@@ -1,5 +1,5 @@
 import React from 'react';
-import { parachute, skyline, cruise, wave, travel } from '../../assets/skyroo/index.js';
+import { parachute, skyline, cruise, wave, travel } from '../../assets/fly-smart/index.js';
 
 const tourTypes = [
   { title: 'Adventure', icon: parachute },
@@ -14,7 +14,7 @@ const PopularTourTypes = () => {
     <section className='max-w-[1280px] mx-auto px-4 py-16 font-dm'>
       <div className='bg-white rounded-3xl shadow-sm border border-gray-100 px-6 sm:px-10 py-10'>
         <div className='text-center'>
-          <p className='text-[0.7rem] tracking-[0.28em] uppercase text-sky-accent mb-2'>
+          <p className='text-[0.7rem] tracking-[0.28em] uppercase text-fly-accent mb-2'>
             Popular tour types
           </p>
           <h2 className='text-2xl sm:text-3xl font-semibold text-gray-900'>
@@ -32,7 +32,7 @@ const PopularTourTypes = () => {
               key={index}
               className='group flex flex-col items-start justify-between p-4 sm:p-5 rounded-2xl border border-gray-200/80 bg-slate-50 hover:bg-white hover:-translate-y-1 hover:shadow-lg transition-all duration-300'
             >
-              <div className='flex items-center justify-center w-11 h-11 rounded-full bg-sky-accent-soft mb-3'>
+              <div className='flex items-center justify-center w-11 h-11 rounded-full bg-fly-accent-soft mb-3'>
                 <img
                   src={type.icon}
                   alt={type.title}

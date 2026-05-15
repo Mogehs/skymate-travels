@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules"; // import Autoplay module
 import "swiper/css";
 import "swiper/css/pagination";
-import { user1, user2, user3, commsVector } from "../../assets/skyroo/index.js";
+import { user1, user2, user3, commsVector } from "../../assets/fly-smart/index.js";
 import { fetchTestimonialsContent } from "../../services/packageService";
 
 
@@ -42,11 +42,11 @@ const Testimonials = () => {
       <div className="absolute inset-0 gradient-sky-secondary opacity-10 blur-3xl -z-10"></div>
       <div className="text-center mb-12">
         <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 font-sansita mb-6">
-          What Our <span className="text-sky-accent">Travelers Say</span>
+          What Our <span className="text-fly-accent">Travelers Say</span>
         </h2>
         <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-          Discover why thousands of voyagers trust Skyroo for seamless flight
-          orchestration.
+          Discover why thousands of voyagers trust Fly Smart for seamless flight
+          planning and cabin-ready precision.
         </p>
       </div>
 
@@ -75,7 +75,7 @@ const Testimonials = () => {
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-sky-accent/30 group-hover:border-sky-accent/60 transition-all duration-300"
+                    className="w-14 h-14 rounded-full object-cover border-2 border-fly-accent/30 group-hover:border-fly-accent/60 transition-all duration-300"
                   />
                   <div className="absolute -bottom-1 -right-1 w-6 h-6 gradient-sky-primary rounded-full flex items-center justify-center text-slate-900 text-xs font-bold">
                     ★
@@ -85,7 +85,7 @@ const Testimonials = () => {
                   <h4 className="font-bold text-slate-900 text-lg">
                     {testimonial.name}
                   </h4>
-                  <div className="flex items-center gap-1 text-sky-accent">
+                  <div className="flex items-center gap-1 text-fly-accent">
                     {[...Array(5)].map((_, i) => (
                       <span
                         key={i}
@@ -112,7 +112,7 @@ const Testimonials = () => {
                 <span className="gradient-sky-primary text-slate-900 text-xs px-3 py-1.5 rounded-full font-medium shadow-sm">
                   {testimonial.location}
                 </span>
-                <div className="text-sky-accent opacity-60 group-hover:opacity-100 transition-opacity duration-300 pr-1">
+                <div className="text-fly-accent opacity-60 group-hover:opacity-100 transition-opacity duration-300 pr-1">
                   <img
                     src={commsVector}
                     alt=""

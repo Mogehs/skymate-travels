@@ -11,7 +11,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { logo } from "../../assets/index.js";
+
 
 const Navbar = () => {
   const location = useLocation();
@@ -24,7 +24,7 @@ const Navbar = () => {
     const path = location.pathname;
     if (path === "/about") return "about";
     if (path === "/contact") return "contact";
-    if (path === "/skyroo") return "skyroo";
+    if (path === "/fly-smart") return "fly-smart";
     if (path === "/safar-air") return "safar-air";
     return "home";
   };
@@ -77,21 +77,19 @@ const Navbar = () => {
   }, []);
   return (
     <nav
-      className={`w-[98%] max-w-[1536px] mx-auto px-3 sm:px-6 py-[14px] ${
-        scrolled ? "h-[70px]" : "h-[78px]"
-      } bg-gradient-to-r from-[#ffffff8a]/60 via-[#ffffff6b]/40 to-transparent backdrop-blur-[18px] left-1/2 -translate-x-1/2 rounded-xl flex items-center justify-between font-sansita fixed top-[21px] z-50 transition-all duration-300 ease-in-out ${
-        scrolled
+      className={`w-[98%] max-w-[1440px] mx-auto px-3 sm:px-6 py-[14px] ${scrolled ? "h-[70px]" : "h-[98px]"
+        } bg-gradient-to-r from-[#ffffff8a]/60 via-[#ffffff6b]/40 to-transparent backdrop-blur-[18px] left-1/2 -translate-x-1/2 rounded-xl flex items-center justify-between font-sansita fixed top-[21px] z-50 transition-all duration-300 ease-in-out ${scrolled
           ? "shadow-lg shadow-orange-200/10 border-b border-orange-100/30"
           : "shadow-md shadow-orange-100/10"
-      }`}
+        }`}
     >
       {/* Logo & Brand with flying plane animation */}
       <div className="flex items-center gap-2">
         <div className="relative">
           <img
-            src={logo}
+            src="/skymate-logo.png"
             alt="Logo"
-            className="w-28 h-12 object-contain relative z-10"
+            className="w-25 h-22 object-cover relative z-10"
           />
         </div>
       </div>{" "}
@@ -99,36 +97,32 @@ const Navbar = () => {
       <div className="hidden lg:flex gap-8 text-black text-sm font-dm items-center font-medium">
         <Link
           to="/"
-          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${
-            getActiveLink() === "home" ? "bg-white/70 shadow-sm" : ""
-          }`}
+          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${getActiveLink() === "home" ? "bg-white/70 shadow-sm" : ""
+            }`}
         >
           <span>Home</span>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-[70%] bg-[#EB662B] rounded-full transition-all duration-300"></div>
         </Link>
         <Link
           to="/about"
-          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${
-            getActiveLink() === "about" ? "bg-white/70 shadow-sm" : ""
-          }`}
+          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${getActiveLink() === "about" ? "bg-white/70 shadow-sm" : ""
+            }`}
         >
           <span>About</span>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-[70%] bg-[#EB662B] rounded-full transition-all duration-300"></div>
         </Link>
         <Link
-          to="/skyroo"
-          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${
-            getActiveLink() === "skyroo" ? "bg-white/70 shadow-sm" : ""
-          }`}
+          to="/fly-smart"
+          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${getActiveLink() === "fly-smart" ? "bg-white/70 shadow-sm" : ""
+            }`}
         >
-          <span>Skyroo</span>
+          <span>Fly Smart</span>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-[70%] bg-[#EB662B] rounded-full transition-all duration-300"></div>
         </Link>
         <Link
           to="/safar-air"
-          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${
-            getActiveLink() === "safar-air" ? "bg-white/70 shadow-sm" : ""
-          }`}
+          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${getActiveLink() === "safar-air" ? "bg-white/70 shadow-sm" : ""
+            }`}
         >
           <span>Safar Air</span>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-[70%] bg-[#EB662B] rounded-full transition-all duration-300"></div>
@@ -145,9 +139,8 @@ const Navbar = () => {
         </a>
         <Link
           to="/contact"
-          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${
-            getActiveLink() === "contact" ? "bg-white/70 shadow-sm" : ""
-          }`}
+          className={`relative group py-2 px-3 rounded-full hover:bg-white/60 transition-all duration-300 ${getActiveLink() === "contact" ? "bg-white/70 shadow-sm" : ""
+            }`}
         >
           <span>Contact Us</span>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-[70%] bg-[#EB662B] rounded-full transition-all duration-300"></div>
@@ -169,11 +162,10 @@ const Navbar = () => {
       </div>{" "}
       {/* Enhanced Mobile Dropdown Menu with Animations */}
       <div
-        className={`absolute top-[78px] right-0 w-[85%] md:w-[50%] max-h-[80vh] overflow-hidden rounded-xl shadow-2xl lg:hidden z-40 font-dm transform transition-all duration-300 ease-in-out origin-top-right ${
-          isOpen
-            ? "opacity-100 scale-100"
-            : "opacity-0 scale-90 pointer-events-none"
-        }`}
+        className={`absolute top-[78px] right-0 w-[85%] md:w-[50%] max-h-[80vh] overflow-hidden rounded-xl shadow-2xl lg:hidden z-40 font-dm transform transition-all duration-300 ease-in-out origin-top-right ${isOpen
+          ? "opacity-100 scale-100"
+          : "opacity-0 scale-90 pointer-events-none"
+          }`}
       >
         <div className="bg-white/90 backdrop-blur-md">
           <div className="py-3 px-4 border-b border-orange-100/30">
@@ -201,11 +193,11 @@ const Navbar = () => {
               About
             </Link>
             <Link
-              to="/skyroo"
+              to="/fly-smart"
               className="px-5 py-3 hover:bg-orange-50 transition-colors text-black text-sm font-medium"
               onClick={() => setIsOpen(false)}
             >
-              Skyroo
+              Fly Smart
             </Link>
             <Link
               to="/safar-air"

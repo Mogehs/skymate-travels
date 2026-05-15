@@ -3,21 +3,21 @@ import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowUp, MessageCircle, Sparkles } from "lucide-react";
 import bgWallpaper from "../assets/images/bg-wallpaper.jpg";
-import "../assets/skyroo/scrollbar.css";
-import Hero from "../components/skyroo/Hero";
-import AboutUs from "../components/skyroo/About";
+import "../assets/fly-smart/scrollbar.css";
+import Hero from "../components/fly-smart/Hero";
+import AboutUs from "../components/fly-smart/About";
 import Umrah from "../components/Umrah";
 import CuratedPackages from "../components/CuratedPackages";
 import Destinations from "../components/Destinations";
 import Testimonials from "../components/Testimonials";
-import MapSection from "../components/skyroo/Map";
-import ContactUs from "../components/skyroo/ContactUs";
+import MapSection from "../components/fly-smart/Map";
+import ContactUs from "../components/fly-smart/ContactUs";
 import MostSearched from "../components/MostSearched";
 import BestDeals from "../components/BestDeals";
 import DestinationHighlights from "../components/Destination";
 import Map from "../components/Map";
 
-const SkyrooPage = () => {
+const FlySmartPage = () => {
   const location = useLocation();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContext, setModalContext] = useState("");
@@ -34,7 +34,7 @@ const SkyrooPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     const formData = new FormData(e.target);
-    fetch("https://formsubmit.co/ajax/skyroointernational@gmail.com", {
+    fetch("https://formsubmit.co/ajax/flysmartmux@gmail.com", {
       method: "POST",
       body: formData,
       headers: {
@@ -135,11 +135,11 @@ const SkyrooPage = () => {
 
   return (
     <>
-      <main className="font-dm text-slate-900 bg-white">
+      <main className="text-slate-900 bg-white">
         {/* Hero section */}
         <Hero openGlobalModal={openGlobalModal} />
 
-        {/* About Skyroo - Simplified */}
+        {/* About Fly Smart - Simplified */}
         <AboutUs />
 
         {/* Curated Packages - Premium Selection */}
@@ -180,7 +180,7 @@ const SkyrooPage = () => {
             <h2 className="text-4xl md:text-5xl font-bold font-sansita text-white mb-6">
               Your World. Your Trips.
             </h2>
-            <p className="text-xl text-white/90 font-dm max-w-3xl mx-auto mb-8 leading-relaxed">
+            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
               Like a perfectly tailored suit, each trip we plan is different;
               just as each traveller is different. We're here to help you
               experience the world on your terms.
@@ -203,7 +203,7 @@ const SkyrooPage = () => {
             <div className="w-full max-w-2xl rounded-3xl bg-white text-slate-900 border border-gray-100 shadow-[0_30px_90px_rgba(15,23,42,0.22)] p-6 sm:p-8 space-y-5 max-h-[90vh] overflow-y-auto scrollbar-hide">
               <header className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[0.7rem] uppercase tracking-[0.32em] text-sky-accent mb-1">
+                  <p className="text-[0.7rem] uppercase tracking-[0.32em] text-fly-accent mb-1">
                     Flight planning brief
                   </p>
                   <h3 className="text-lg sm:text-xl font-semibold">
@@ -251,14 +251,14 @@ const SkyrooPage = () => {
                     name="name"
                     required
                     placeholder="Full name"
-                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                   <input
                     type="email"
                     name="email"
                     required
                     placeholder="Work email"
-                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                 </div>
 
@@ -267,17 +267,17 @@ const SkyrooPage = () => {
                     type="tel"
                     name="phone"
                     placeholder="Phone / WhatsApp"
-                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                   <input
                     type="text"
                     name="company"
                     placeholder="Company (optional)"
-                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                   <select
                     name="trip_type"
-                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                     defaultValue="Return"
                   >
                     <option>Return</option>
@@ -291,13 +291,13 @@ const SkyrooPage = () => {
                     type="text"
                     name="from_city"
                     placeholder="From city / airport"
-                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                   <input
                     type="text"
                     name="to_city"
                     placeholder="To city / airport"
-                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                    className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                 </div>
 
@@ -306,12 +306,12 @@ const SkyrooPage = () => {
                     <input
                       type="date"
                       name="departure_date"
-                      className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                      className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                     />
                     <input
                       type="date"
                       name="return_date"
-                      className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                      className="rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                     />
                   </div>
                   <div className="grid grid-cols-3 gap-2">
@@ -320,18 +320,18 @@ const SkyrooPage = () => {
                       name="adults"
                       min="1"
                       placeholder="Adults"
-                      className="rounded-2xl bg-white border border-gray-200 px-3 py-2.5 text-xs outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                      className="rounded-2xl bg-white border border-gray-200 px-3 py-2.5 text-xs outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                     />
                     <input
                       type="number"
                       name="children"
                       min="0"
                       placeholder="Children"
-                      className="rounded-2xl bg-white border border-gray-200 px-3 py-2.5 text-xs outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                      className="rounded-2xl bg-white border border-gray-200 px-3 py-2.5 text-xs outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                     />
                     <select
                       name="cabin_class"
-                      className="rounded-2xl bg-white border border-gray-200 px-3 py-2.5 text-xs outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent"
+                      className="rounded-2xl bg-white border border-gray-200 px-3 py-2.5 text-xs outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                     >
                       <option>Economy</option>
                       <option>Premium</option>
@@ -345,14 +345,14 @@ const SkyrooPage = () => {
                   rows={3}
                   name="message"
                   placeholder="Anything else we should know? e.g. preferred airlines, time windows, visa support, lounge access…"
-                  className="w-full rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-sky-accent focus:ring-1 focus:ring-sky-accent resize-none"
+                  className="w-full rounded-2xl bg-white border border-gray-200 px-4 py-2.5 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 resize-none"
                 />
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <label className="inline-flex items-center gap-2 text-xs text-slate-600">
                     <input
                       type="checkbox"
-                      className="rounded border-gray-300 text-sky-accent focus:ring-sky-accent"
+                      className="rounded border-gray-300 text-orange-500 focus:ring-orange-500"
                     />
                     Contact me on WhatsApp if quicker
                   </label>
@@ -419,4 +419,4 @@ const SkyrooPage = () => {
   );
 };
 
-export default SkyrooPage;
+export default FlySmartPage;

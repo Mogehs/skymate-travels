@@ -6,7 +6,7 @@ import {
   date,
   group84,
   beautifulCollageTravel,
-} from '../../assets/skyroo/index.js';
+} from '../../assets/fly-smart/index.js';
 
 const features = [
   {
@@ -61,8 +61,8 @@ const WhyChooseUs = () => {
 
           {/* Right content */}
           <div className='w-full lg:w-1/2 space-y-5'>
-            <p className='text-[0.7rem] tracking-[0.28em] uppercase text-sky-accent'>
-              Why travelers stay with Skyroo
+            <p className='text-[0.7rem] tracking-[0.28em] uppercase text-fly-accent'>
+              Why travelers stay with Fly Smart
             </p>
             <h2 className='text-3xl font-semibold text-gray-900'>
               A single desk for flights, visas and follow‑through
@@ -78,7 +78,7 @@ const WhyChooseUs = () => {
                   key={index}
                   className='flex items-start gap-4 cursor-pointer rounded-2xl border border-gray-200/80 bg-slate-50 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300 px-4 py-3 sm:w-[88%]'
                 >
-                  <div className='flex items-center justify-center w-10 h-10 rounded-full bg-sky-accent-soft flex-shrink-0'>
+                  <div className='flex items-center justify-center w-10 h-10 rounded-full bg-fly-accent-soft flex-shrink-0'>
                     <img src={item.icon} alt='icon' className='w-5 h-5' />
                   </div>
                   <div>

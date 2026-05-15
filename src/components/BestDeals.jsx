@@ -86,7 +86,7 @@ export default function BestDeals({ brand = 'skymate' }) {
           />
         </div>
 
-        <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-20">
+        <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-20">
           {error && (
             <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded relative z-20">
               <p>Unable to load deals from server. Showing cached data.</p>

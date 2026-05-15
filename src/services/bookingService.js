@@ -36,6 +36,7 @@ export const saveBookingToFirebase = async (bookingData) => {
 export const processBookingData = (formData, tripType, cityPairs = []) => {
   const bookingData = {
     tripType,
+    serviceType: formData.get("serviceType") || "Airtickets",
     packageName: formData.get("package"),
     passengerCount: parseInt(formData.get("adults")) || 1,
     cabinClass: formData.get("class"),

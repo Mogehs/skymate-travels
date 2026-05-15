@@ -107,7 +107,7 @@ const CuratedPackages = ({ openGlobalModal, brand = 'skymate' }) => {
   const shouldShowCarousel = packages.length >= getMinItemsRequired();
 
   return (
-    <section className="py-12 md:py-20 flex flex-col justify-center px-4 md:px-12 lg:px-20 font-dm max-w-[1536px] mx-auto overflow-hidden bg-white">
+    <section className="py-12 md:py-20 flex flex-col justify-center px-4 md:px-12 lg:px-20 font-dm max-w-[1440px] mx-auto overflow-hidden bg-white">
       <h2 className="text-3xl font-semibold text-right text-gray-800 mb-8">
         Explore Our <span className={theme.primary}>Curated Packages</span>
       </h2>

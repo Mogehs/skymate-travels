@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Plane, ArrowUpRight, ArrowDown } from "lucide-react";
-import { hero } from "../../assets/skyroo/index.js";
+import { hero } from "../../assets/fly-smart/index.js";
 
 const useCountAnimation = (end, duration = 2000, start = 0) => {
   const [count, setCount] = useState(start);
@@ -46,18 +46,18 @@ const Hero = ({ openGlobalModal }) => {
           <h1 className="font-sansita text-[2.75rem] sm:text-[3.75rem] lg:text-[4.5rem] leading-[0.95] text-slate-900 tracking-tight lg:w-3/5">
             Priced to help you
             <br />
-            <span className="text-sky-accent">grow and thrive.</span>
+            <span className="text-fly-accent">grow and thrive.</span>
           </h1>
           <div className="lg:w-2/5 flex flex-col gap-5">
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-light">
-              Skyroo curates premium routes, visa support, and cabin upgrades
+              Fly Smart curates premium routes, visa support, and cabin upgrades
               into one seamless concierge experience—so every departure feels
               considered, not chaotic.
             </p>
             {/* Mobile actions moved here for better UX on small screens */}
             <div className="flex lg:hidden flex-wrap gap-3">
               <button
-                onClick={() => openGlobalModal("Skyroo Signature Flight")}
+                onClick={() => openGlobalModal("Fly Smart Signature Flight")}
                 className="gradient-sky-primary text-slate-900 font-semibold px-8 py-4 rounded-full flex items-center gap-2 shadow-lg hover:translate-y-[-1px] transition-transform text-sm"
               >
                 <Plane className="rotate-45" size={18} />
@@ -82,7 +82,7 @@ const Hero = ({ openGlobalModal }) => {
           {/* Left: Action Buttons */}
           <div className="flex flex-wrap justify-center lg:justify-start gap-4">
             <button
-              onClick={() => openGlobalModal("Skyroo Signature Flight")}
+              onClick={() => openGlobalModal("Fly Smart Signature Flight")}
               className="hidden lg:flex gradient-sky-primary text-slate-900 font-bold px-6 py-3 rounded-full items-center gap-3 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-sm tracking-wide"
             >
               Start your journey
@@ -94,7 +94,7 @@ const Hero = ({ openGlobalModal }) => {
                   .getElementById("umrah")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="px-6 py-3 rounded-full border border-slate-300 hover:border-sky-accent bg-white text-sm font-bold text-slate-700 flex items-center gap-2 hover:bg-slate-50 transition-all duration-300"
+              className="px-6 py-3 rounded-full border border-slate-300 hover:border-fly-accent bg-white text-sm font-bold text-slate-700 flex items-center gap-2 hover:bg-slate-50 transition-all duration-300"
             >
               Explore plans
               <ArrowUpRight size={18} />
@@ -107,7 +107,7 @@ const Hero = ({ openGlobalModal }) => {
               <div key={stat.label} className="text-center lg:text-right">
                 <p className="text-xl sm:text-2xl font-sansita font-bold text-slate-900">
                   {useCountAnimation(stat.value)}
-                  <span className="text-sky-accent">+</span>
+                  <span className="text-fly-accent">+</span>
                 </p>
                 <p className="text-[0.65rem] uppercase tracking-widest text-slate-500 font-medium mt-1">
                   {stat.label}

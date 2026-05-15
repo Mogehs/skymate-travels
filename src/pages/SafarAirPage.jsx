@@ -2,15 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import bgWallpaper from "../assets/images/bg-wallpaper.jpg";
-import Navbar from "../components/common/Navbar";
 import Hero from "../components/safar-air/Hero";
-import PopularTourTypes from "../components/safar-air/Popular";
 import AboutUs from "../components/safar-air/About";
-import WhyChooseUs from "../components/safar-air/Choose";
 import Umrah from "../components/Umrah";
 import MostSearched from "../components/MostSearched";
 import BestDeals from "../components/BestDeals";
-import Footer from "../components/common/Footer";
 import Testimonials from "../components/Testimonials";
 import Destinations from "../components/Destinations";
 import CuratedPackages from "../components/CuratedPackages";
@@ -144,11 +140,10 @@ const SafarAirPage = () => {
       )}
 
       <div
-        className={`w-full transition-all duration-1000 ease-out ${
+        className={`w-full transition-all duration-1000 ease-out font-poppins ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
-        <Navbar />
         <Hero openGlobalModal={openGlobalModal} />
 
         <div className="w-full">
@@ -179,7 +174,7 @@ const SafarAirPage = () => {
               <h2 className="text-4xl md:text-5xl font-bold font-sansita text-white mb-6">
                 Your World. Your Trips.
               </h2>
-              <p className="text-xl text-white/90 font-dm max-w-3xl mx-auto mb-8 leading-relaxed">
+              <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
                 Like a perfectly tailored suit, each trip we plan is different;
                 just as each traveller is different. We're here to help you
                 experience the world on your terms.
@@ -193,7 +188,6 @@ const SafarAirPage = () => {
               </Link>
             </div>
           </section>
-          {/* <Footer /> */}
         </div>
       </div>
 
